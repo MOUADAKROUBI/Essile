@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fuzzy+Bubbles&family=Itim&family=Kaushan+Script&family=Montserrat:wght@100&family=My+Soul&family=Noto+Kufi+Arabic:wght@500;900&family=Oswald:wght@500&family=Plus+Jakarta+Sans:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Flex:opsz@8..144&family=Roboto+Mono:ital,wght@1,600&family=Roboto:ital,wght@0,400;0,700;1,100&family=Schibsted+Grotesk&display=swap');
+
+:root {
+  --principal-color: #B18C50;
+}
+
+.social-icons {
+  color: var(--principal-color);
+}
+
+.btns {
+  color: var(--principal-color) !important;
+}
+
+.logo img {
+  width: 150px;
+  height: 90px;
+  object-fit: cover;
+}
+
+a {
+  transition: .3s all;
+  text-decoration: none;
+  position: relative;
+}
+
+.category-title {
+  font-family: 'Noto Kufi Arabic', sans-serif;
+  transition: .5s linear all;
+}
+
+.category-link:hover::after,.category-link.active::after {
+  content: '';
+  width: 60%;
+  height: 4px;
+  background-color: var(--principal-color);
+  position: absolute;
+  bottom: 0px;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+@media screen and (max-width:1065px) {
+  .header-1 .infos-contact {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width:615px) {
+  .header-1 .social-icons {
+    display: none !important;
+  }
+}

@@ -1,0 +1,18 @@
+:root {
+  --principal-color: #B18C50;
+}
+
+footer {
+  background-color: black;
+  width: 95vw;
+  position: relative;
+  right: 50%;
+  transform: translateX(50%);
+  border-top-right-radius: 60px;
+  border-top-left-radius: 60px;
+  padding: 25px 20px;
+}
+
+.contactMe {
+  color: var(--principal-color);
+}
