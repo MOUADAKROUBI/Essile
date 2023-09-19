@@ -15,7 +15,6 @@ const MostSallers = () => {
     })
     .then((res) => {
       setProducts(res.data.data)
-      console.log(res.data.data)
     })
     .catch((err) => {
       console.error(err)

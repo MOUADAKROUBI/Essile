@@ -6,6 +6,8 @@ import {
   Menu,
   MenuItem,
   Typography,
+  Skeleton,
+  Stack,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -24,18 +26,24 @@ const FetchPages = () => {
     setAnchorElNav(null);
   };
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(import.meta.env.VITE_API_URL + "/categories", {
-          headers: {
-            Accept: "*/*",
-            Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
-            "Content-Type": 'application/json'
-          },
-        });
+        const response = await axios.get(
+          import.meta.env.VITE_API_URL + "/categories",
+          {
+            headers: {
+              Accept: "*/*",
+              Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+              "Content-Type": "application/json",
+            },
+          }
+        );
         setData(response.data.data);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         throw error;
       }
     }
@@ -59,13 +67,12 @@ const FetchPages = () => {
   };
 
   const inlg = () => {
-    let className= '';
+    let className = "";
 
     return data.map((page, index) => {
       if (page.attributes.root === "/" + window.location.href.split("/")[3])
-        className= 'fs-6 fw-bold text-dark category-link active'
-      else
-        className= 'fs-6 fw-bold text-dark category-link'
+        className = "fs-6 fw-bold text-dark category-link active";
+      else className = "fs-6 fw-bold text-dark category-link";
 
       return (
         <Link
@@ -82,8 +89,8 @@ const FetchPages = () => {
         >
           {page.attributes.categoryTitle}
         </Link>
-      )
-  });
+      );
+    });
   };
 
   return (
@@ -137,7 +144,24 @@ const FetchPages = () => {
       </Typography>
       {/* navList */}
       <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-        {inlg()}
+        {loading ? (
+          <Stack
+            spacing={2}
+            sx= {
+              {
+                display: 'grid',
+                gridTemplateColumns: 'repeat(6, 1fr)',
+                gap: 1,
+              }
+            }
+          >
+            {[1, 2, 3, 4, 5, 6].map((val, ind) => (
+              <Skeleton key={ind} variant="rounded" width={100} height={30}/>
+            ))}
+          </Stack>
+        ) : (
+          inlg()
+        )}
       </Box>
     </>
   );
