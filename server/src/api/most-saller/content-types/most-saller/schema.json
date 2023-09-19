@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "most_sallers",
+  "info": {
+    "singularName": "most-saller",
+    "pluralName": "most-sallers",
+    "displayName": "most saller"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    }
+  }
+}

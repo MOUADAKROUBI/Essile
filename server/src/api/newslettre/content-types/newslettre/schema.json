@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "newslettres",
+  "info": {
+    "singularName": "newslettre",
+    "pluralName": "newslettres",
+    "displayName": "newslettre"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "emailOfCostumer": {
+      "type": "email",
+      "required": true,
+      "unique": true
+    }
+  }
+}
