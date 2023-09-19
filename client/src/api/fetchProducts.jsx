@@ -4,21 +4,15 @@ import {  } from "react";
 import axios from "axios";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-// const access_token = import.meta.env.VITE_ACCESS_TOKEN;
-const access_token =
-  "b2373a287887f23ba5b2cec58eebbe67f2c6a8ed4915d6b5aee148915c0fafa755d5134af15818913567e3557eb31fa0810667c1de1ee1a9a035b907b6ab25630d495a2ec0b2d0ce5f07cb4c5b4add1073ff9ab770a31aa2d30a568727e64f2ade10ef5cc5297e3fc180412d9ddac544d7788db3c76224b35ad5683cae447dd8";
-const api_url = "http://localhost:1337/api";
-// const api_url = import.meta.env.VITE_API_URL;
 import { enqueueSnackbar } from 'notistack';
 
 const FetchProducts = ({ data, loading }) => {
-  
 
   async function handleAddToCart(id, variant) {
-    const response = await axios.get(`${api_url}/products/${id}?populate=prductImage`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}?populate=prductImage`, {
       headers: {
         Accept: "*/*",
-        Authorization: `Bearer ${access_token}`,
+        Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
       },
     });
     let cart = JSON.parse(localStorage.getItem('cart'));
@@ -73,7 +67,6 @@ const FetchProducts = ({ data, loading }) => {
                     <img
                       className="rounded"
                       src={
-                        "http://localhost:1337" +
                         img.attributes.formats.medium.url
                       }
                       alt={product.attributes.productTitile}

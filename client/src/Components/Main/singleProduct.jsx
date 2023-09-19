@@ -72,7 +72,7 @@ const SingleProduct = () => {
                 data.attributes.prductImage.data.map( (img, index) => (
                   <img
                     key={index}
-                    src={'http://localhost:1337'+img.attributes.formats.medium.url}
+                    src={img.attributes.formats.medium.url}
                     alt={img.attributes.formats.medium.hash}
                     className="rounded"
                     style={{

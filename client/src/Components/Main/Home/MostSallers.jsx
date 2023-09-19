@@ -6,7 +6,6 @@ import axios from 'axios';
 
 const MostSallers = () => {
   const [products, setProducts] = useState([])
-  console.log(import.meta.env.VITE_API_URL)
   useEffect(() => {
     axios.get(`${import.meta.env.VITE_API_URL}/products?populate=prductImage&filters[id][$lt]=5`, {
       headers: {
@@ -95,7 +94,6 @@ const MostSallers = () => {
                       <img
                         className="rounded"
                         src={
-                          "http://localhost:1337" +
                           img.attributes.formats.medium.url
                         }
                         alt={product.attributes.productTitile}

@@ -10,9 +10,6 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-const access_token =
-  "b2373a287887f23ba5b2cec58eebbe67f2c6a8ed4915d6b5aee148915c0fafa755d5134af15818913567e3557eb31fa0810667c1de1ee1a9a035b907b6ab25630d495a2ec0b2d0ce5f07cb4c5b4add1073ff9ab770a31aa2d30a568727e64f2ade10ef5cc5297e3fc180412d9ddac544d7788db3c76224b35ad5683cae447dd8";
-const api_url = "http://localhost:1337/api";
 
 const FetchPages = () => {
   const principalColor = "#B18C50";
@@ -30,10 +27,11 @@ const FetchPages = () => {
   useEffect(() => {
     async function fetchData() {
       try {
-        const response = await axios.get(api_url + "/categories", {
+        const response = await axios.get(import.meta.env.VITE_API_URL + "/categories", {
           headers: {
             Accept: "*/*",
-            Authorization: `Bearer ${access_token}`,
+            Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+            "Content-Type": 'application/json'
           },
         });
         setData(response.data.data);
@@ -135,7 +133,7 @@ const FetchPages = () => {
         }}
         className="logo"
       >
-        <img src="../../images/logo_essile_ar.png" alt="" />
+        <img src="../../images/loading_logo.png" alt="" />
       </Typography>
       {/* navList */}
       <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

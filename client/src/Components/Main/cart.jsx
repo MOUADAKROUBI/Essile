@@ -229,7 +229,6 @@ const Cart = () => {
                   >
                     <img
                       src={
-                        "http://localhost:1337" +
                         product.attributes.prductImage.data[0].attributes
                           .formats.small.url
                       }
