@@ -29,7 +29,7 @@ const Cart = () => {
 
   const [CommandID, setCommandID] = useState(uuidv4());
   const [NameComplete, setNameComplete] = useState("");
-  const [Telephone, setTelephone] = useState(null);
+  const [Telephone, setTelephone] = useState(undefined);
   const [city, setCity] = useState("");
   const [Address, setAddress] = useState("");
   const [counters, setCounters] = useState(cartProduct.map(() => 1));

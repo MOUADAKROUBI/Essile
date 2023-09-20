@@ -7,7 +7,7 @@ import {
   MenuItem,
   Typography,
   Skeleton,
-  Stack,
+  Grid,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -124,7 +124,15 @@ const FetchPages = () => {
             display: { xs: "block", md: "none" },
           }}
         >
-          {insm()}
+          {loading ? (
+              Array.from(new Array(6)).map( (i, a) => (
+                <MenuItem key={a} onClick={handleCloseNavMenu}>
+                  <Skeleton variant="rounded" width={100} height={30} />
+                </MenuItem>
+              ))
+          ) : (
+            insm()
+          )}
         </Menu>
       </Box>
       {/* logo */}
@@ -143,26 +151,17 @@ const FetchPages = () => {
         <img src="../../images/loading_logo.png" alt="" />
       </Typography>
       {/* navList */}
-      <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-        {loading ? (
-          <Stack
-            spacing={2}
-            sx= {
-              {
-                display: 'grid',
-                gridTemplateColumns: 'repeat(6, 1fr)',
-                gap: 1,
-              }
-            }
-          >
-            {[1, 2, 3, 4, 5, 6].map((val, ind) => (
-              <Skeleton key={ind} variant="rounded" width={100} height={30}/>
-            ))}
-          </Stack>
-        ) : (
-          inlg()
-        )}
-      </Box>
+      {loading ? (
+        <Grid container wrap="wrap" gap={2} sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          {Array.from(new Array(6)).map( (i, a) => (
+            <Skeleton key={a} variant="rounded" width={100} height={30} />
+          ))}
+        </Grid>
+      ) : (
+        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+          {inlg()}
+        </Box>
+      )}
     </>
   );
 };

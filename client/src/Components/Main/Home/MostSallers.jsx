@@ -1,4 +1,5 @@
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
+/* eslint-disable no-useless-catch */
+import { Box, IconButton, Skeleton, Tooltip, Typography } from '@mui/material';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useEffect, useState } from 'react';
 import {  enqueueSnackbar } from 'notistack';
@@ -6,19 +7,25 @@ import axios from 'axios';
 
 const MostSallers = () => {
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+
   useEffect(() => {
-    axios.get(`${import.meta.env.VITE_API_URL}/products?populate=prductImage&filters[id][$lt]=5`, {
-      headers: {
-        Accept: "*/*",
-        Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
-      },
-    })
-    .then((res) => {
-      setProducts(res.data.data)
-    })
-    .catch((err) => {
-      console.error(err)
-    })
+    async function fetchData() {
+      try {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/products?populate=*`, {
+          headers: {
+            Accept: "*/*",
+            Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+          },
+        })
+        setProducts(res.data.data)
+        setLoading(false)
+      } catch(err) {
+        setLoading(false)
+        throw err
+      }
+    }
+    fetchData()
   }, [])
 
   async function handleAddToCart(id, variant) {
@@ -66,9 +73,9 @@ const MostSallers = () => {
         }
       >
         {
-          products.map((product) => (
+          (loading? Array.from(new Array(3)):products).map((product, index) => (
             <Box 
-              key={product.id} 
+              key={index} 
               component='article'
               className="product rounded p-1"
               sx={
@@ -81,59 +88,77 @@ const MostSallers = () => {
                 }
               }
             >
-              {product.attributes.prductImage.data.map((img, index) => (
-                  <Box
-                    key={index}
-                    className="product-img d-flex justify-content-center"
-                    sx={{
-                      height: { md: 300, xs: 350 },
-                    }}
-                  >
-                    <a href={"/product/" + product.id}>
-                      <img
-                        className="rounded"
-                        src={
-                          img.attributes.formats.medium.url
-                        }
-                        alt={product.attributes.productTitile}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
+              {
+                product ?(
+                  product.attributes.prductImage.data.map((img, index) => (
+                      <Box
+                        key={index}
+                        className="product-img d-flex justify-content-center"
+                        sx={{
+                          height: { md: 300, xs: 350 },
                         }}
-                      />
-                    </a>
-                  </Box>
-                ))}
+                      >
+                        <a href={"/product/" + product.id}>
+                          <img
+                            className="rounded"
+                            src={
+                              img.attributes.formats.medium.url
+                            }
+                            alt={product.attributes.productTitile}
+                            style={{
+                              width: "100%",
+                              height: "100%",
+                              objectFit: "cover",
+                            }}
+                          />
+                        </a>
+                      </Box>
+                    ))
+                ):(
+                  <Skeleton variant="rectangular" height={218} />
+                )
+              }
               <Box 
                 className="product-info text-center mt-2"
               >
-                <Typography
-                  variant='h5'
-                  component='a'
-                  href={"/product/" + product.id}
-                  mb={1}
-                  className='product-title fw-bold text-dark my-2'
-                >
-                    {product.attributes.productTitile}
-                </Typography>
-                <div className="row">
-                  <div className="col product-price d-flex fw-bold fs-4 align-items-center text-end">
-                    {product.attributes.productPrice} درهم
-                  </div>
-                  <div className="col d-flex justify-content-end add-to cart">
-                    <IconButton
-                      onClick={() => handleAddToCart(product.id, 'success')}
-                    >
-                      <Tooltip
-                        title="أضف هذا المنتوج إلى سلة منتجاتك"
-                        arrow
-                      >
-                        <AddShoppingCartIcon className='fs-3'/>
-                      </Tooltip>
-                    </IconButton>
-                  </div>
-                </div>
+                {
+                  product ?(
+                  <Typography
+                    variant='h5'
+                    component='a'
+                    href={"/product/" + product.id}
+                    mb={1}
+                    className='product-title fw-bold text-dark my-2'
+                  >
+                      {product.attributes.productTitile}
+                  </Typography>
+                  ):(
+                    <Skeleton />
+                  )
+                }
+                {
+                  product ?(
+                    <div className="row">
+                      <div className="col product-price d-flex fw-bold fs-4 align-items-center text-end">
+                        {product.attributes.productPrice} درهم
+                      </div>
+                      <div className="col d-flex justify-content-end add-to cart">
+                        <IconButton
+                          onClick={() => handleAddToCart(product.id, 'success')}
+                        >
+                          <Tooltip
+                            title="أضف هذا المنتوج إلى سلة منتجاتك"
+                            arrow
+                          >
+                            <AddShoppingCartIcon className='fs-3'/>
+                          </Tooltip>
+                        </IconButton>
+                      </div>
+                    </div>
+                  ):(
+                    <Skeleton width="60%" />
+                  )
+                }
               </Box>
             </Box>
           ))

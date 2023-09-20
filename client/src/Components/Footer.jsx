@@ -36,7 +36,7 @@ const Footer = () => {
             component='iframe'
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.612234183615!2d-9.563779725234534!3d30.047980618404576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdb393d3bddcb8ef%3A0xd249679bcb38553b!2sEssile!5e0!3m2!1sen!2sma!4v1694089544401!5m2!1sen!2sma"
             style={{border:0}}
-            allowfullscreen
+            allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className="rounded"
