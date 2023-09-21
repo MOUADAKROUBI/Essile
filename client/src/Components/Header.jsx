@@ -25,6 +25,9 @@ import FetchPages from "../api/fetchPages";
 import { useState } from "react";
 
 const Header = () => {
+  if (localStorage.getItem("cart") === null)
+    localStorage.setItem("cart", JSON.stringify([]));
+
   const principalColor = "#B18C50";
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -200,7 +203,7 @@ const Header = () => {
                   size="large"
                   type="submit"
                 >
-                  <Badge badgeContent={JSON.parse(localStorage.getItem('cart')).length} color="error">
+                  <Badge badgeContent={String(JSON.parse(localStorage.getItem('cart')).length)} color="error">
                     <LocalMallOutlinedIcon
                       style={{ color: principalColor }} 
                       className="fs-2"
