@@ -1,20 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import { Loading } from './Loading'; // Import the Loading component using named import
-import { LoadingProvider, useLoading } from './LoadingContext';
+import { Loading } from './Loading'; 
 
 function Main() {
-  const { loading, startLoading, stopLoading } = useLoading();
-  useEffect(() => {
-    // Simulate loading or fetching data
-    startLoading();
+  const [loading, setLoading] = useState(true)
 
-    // After loading or data fetching is complete
-    setTimeout(() => {
-      stopLoading();
-    }, 2000); // Replace with your actual loading logic
-  }, []);
+  setTimeout(() => {
+    setLoading(false);
+  }, 2000);
 
   return (
     <React.StrictMode>
@@ -24,7 +18,5 @@ function Main() {
 }
 
 ReactDOM.createRoot(document.getElementById('react-app')).render(
-  <LoadingProvider>
-    <Main />
-  </LoadingProvider>
+  <Main />
 );

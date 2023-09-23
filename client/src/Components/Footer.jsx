@@ -42,8 +42,8 @@ const Footer = () => {
             className="rounded"
             sx= {
               {
-                width: {sm:600, xs:400},
-                height: {sm:400, xs: 300}
+                width: {sm:600, xs:350},
+                height: {sm:400, xs: 250}
               }
             }
           ></Box>

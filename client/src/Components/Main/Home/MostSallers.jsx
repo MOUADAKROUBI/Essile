@@ -39,6 +39,9 @@ const MostSallers = () => {
     cart.push(product.data.data)
     localStorage.setItem('cart', JSON.stringify(cart));
     enqueueSnackbar('تمت إضافة هذا المنتوج إلى سلة منتجاتك بنجاح', {variant})
+    setTimeout(() => {
+      window.location.href = '/cart'
+    }, 2000);
   }
   return (
     <Box

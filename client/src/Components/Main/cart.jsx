@@ -227,7 +227,8 @@ const Cart = () => {
                       height: 150,
                     }}
                   >
-                    <img
+                    <Box
+                      component='img'
                       src={
                         product.attributes.prductImage.data[0].attributes
                           .formats.small.url
@@ -236,8 +237,14 @@ const Cart = () => {
                         product.attributes.prductImage.data[0].attributes
                           .formats.small.url
                       }
-                      style={{ width: "100%", height: "100%" }}
                       className="rounded"
+                      sx= {
+                        {
+                          width: {sm: "100%", xs: '75%'},
+                          height: {sm: "100%", xs: '75%'},
+                          objectFit: 'cover'
+                        }
+                      }
                     />
                   </Box>
                   <div className="product-title-quantity text-center">
@@ -245,7 +252,7 @@ const Cart = () => {
                       variant="h4"
                       className="mb-5"
                       sx={{
-                        fontSize: { sm: "2.125rem", xs: "1.9rem" },
+                        fontSize: { sm: "2.125rem", xs: "1.2rem" },
                       }}
                     >
                       {product.attributes.productTitile}
@@ -300,7 +307,7 @@ const Cart = () => {
                       variant="h4"
                       className="fw-bold"
                       sx={{
-                        fontSize: { sm: "2.225rem", xs: "1.9rem" },
+                        fontSize: { sm: "2.225rem", xs: "1.2rem" },
                       }}
                     >
                       {product.attributes.productPrice * counters[index]} درهم
@@ -317,7 +324,7 @@ const Cart = () => {
                   variant="h3"
                   className="fw-bold"
                   sx={{
-                    fontSize: { sm: "3rem", xs: "2rem" },
+                    fontSize: { sm: "3rem", xs: "1.2rem" },
                   }}
                 >
                   المجموع
@@ -327,7 +334,7 @@ const Cart = () => {
                   className="summ fw-bold"
                   sx={{
                     color: "#B18C50",
-                    fontSize: { sm: "3rem", xs: "2rem" },
+                    fontSize: { sm: "3rem", xs: "1.2rem" },
                   }}
                 >
                   {sum}درهم
@@ -337,8 +344,9 @@ const Cart = () => {
                 variant="secondary"
                 className="text-danger fw-bold fs-5"
                 onClick={() => handleDeleteAllProductsInCart("success")}
+                startIcon={<DeleteIcon className="ms-2"/>}
               >
-                <DeleteIcon /> حذف جميع المنتجات من سلة المشتريات
+                حذف جميع المنتجات من سلة المشتريات
               </Button>
             </Box>
           </Box>

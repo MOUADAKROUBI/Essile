@@ -178,7 +178,7 @@ const Header = () => {
             >
               <Box
                 component='img'
-                src="../images/loading_logo.png" alt="" 
+                src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_logo.svg?alt=media&token=cb5f4bc1-110d-4174-b5ee-7a097109d215" alt="" 
                 sx = {
                   {
                     width: '100%',

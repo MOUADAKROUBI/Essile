@@ -19,6 +19,9 @@ const FetchProducts = ({ data, loading }) => {
     cart.push(response.data.data)
     localStorage.setItem('cart', JSON.stringify(cart));
     enqueueSnackbar('تمت إضافة هذا المنتوج إلى سلة منتجاتك بنجاح', {variant})
+    setTimeout(() => {
+      window.location.href = '/cart'
+    }, 2000);
   }
 
   return (
@@ -39,7 +42,7 @@ const FetchProducts = ({ data, loading }) => {
         }}
       >
         {loading ? (
-          <img src="../../images/loading_products.gif" alt="" />
+          <img src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_products.gif?alt=media&token=a4f48c3f-47c3-4b2b-9af4-448985881b7d" alt="" />
         ) : data.length ? (
           data.map((product, index) =>
             <Box

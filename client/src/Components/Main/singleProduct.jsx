@@ -31,7 +31,7 @@ const SingleProduct = () => {
     }
 
     fetchData();
-  }, []);
+  }, [id]);
 
   async function handleAddToCart(id, variant) {
     const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}?populate=prductImage`, {
@@ -57,7 +57,7 @@ const SingleProduct = () => {
             sx={{
               display: "grid",
               gridTemplateColumns: {md: '1fr 1fr'},
-              gap: 5,
+              gap: 1,
               boxShadow:
                 "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
             }}
@@ -65,20 +65,26 @@ const SingleProduct = () => {
             <Box
               className="product-img"
               sx={{
-                height: { md: 500, sm: 400, xs: 350},
+                
               }}
             >
               {
                 data.attributes.prductImage.data.map( (img, index) => (
-                  <img
+                  <Box
+                    component='img'
                     key={index}
                     src={img.attributes.formats.medium.url}
                     alt={img.attributes.formats.medium.hash}
                     className="rounded"
                     style={{
-                      width: "100%",
-                      height: "100%",
+                      objectFit: 'contain'
                     }}
+                    sx= {
+                      {
+                        // width: { md: 500, sm: 400, xs: 350},
+                        // height: { md: 500, sm: 400, xs: 350},
+                      }
+                    }
                   />
                 ))
               }
