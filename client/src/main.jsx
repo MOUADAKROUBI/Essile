@@ -8,11 +8,11 @@ function Main() {
 
   setTimeout(() => {
     setLoading(false);
-  }, 2000);
+  }, 4000);
 
   return (
     <React.StrictMode>
-      {loading ? <Loading /> : <App />}
+      {window.location.pathname==='/'&&loading ? <Loading /> : <App />}
     </React.StrictMode>
   );
 }
