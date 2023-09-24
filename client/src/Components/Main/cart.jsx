@@ -95,11 +95,14 @@ const Cart = () => {
           setAddress('')
           setCity('')
           setTelephone('')
+        } else {
+          enqueueSnackbar('ثم رفض طلبك المرجو إدخال المعلومات بشكل صحيح', 'error')
         }
       })
       .catch((error) => {
-        if(error.data)
-          enqueueSnackbar('ثم رفض طلبك المرجو إدخال المعلومات بشكل صحيح', 'error')
+        // if(error.data)
+        //   enqueueSnackbar('ثم رفض طلبك المرجو إدخال المعلومات بشكل صحيح', 'error')
+        console.log(error)
       });
   }
 
@@ -213,7 +216,7 @@ const Cart = () => {
               {cartProduct.map((product, index) => (
                 <Box
                   key={index}
-                  className="single-product mb-3 p-4 rounded border"
+                  className="single-product mb-3 p-2 rounded border"
                   sx={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr 1fr",

@@ -104,7 +104,7 @@ const Header = () => {
             className="d-flex ms-3"
           >
             <CallIcon style={{ marginRight: 5 }} />{" "}
-            <span className="text-dark me-2">0694940024</span>
+            <span className="text-dark me-2">0606662991</span>
           </Typography>
           <Typography
             variant="h6"
@@ -113,7 +113,7 @@ const Header = () => {
             className="d-flex"
           >
             <EmailIcon style={{ marginRight: 5 }} />{" "}
-            <span className="text-dark me-2">EssileShop@gmail.com</span>
+            <span className="text-dark me-2">Bnalimohamed54@gmail.com</span>
           </Typography>
         </div>
         <div className="col social-icons">

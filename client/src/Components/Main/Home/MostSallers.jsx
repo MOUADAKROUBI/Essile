@@ -80,7 +80,7 @@ const MostSallers = () => {
             <Box 
               key={index} 
               component='article'
-              className="product rounded p-1"
+              className="product rounded p-2"
               sx={
                 {
                   transition: '.3s all linear',

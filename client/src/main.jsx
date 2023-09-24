@@ -5,10 +5,9 @@ import { Loading } from './Loading';
 
 function Main() {
   const [loading, setLoading] = useState(true)
-
   setTimeout(() => {
     setLoading(false);
-  }, 4000);
+  }, 2000)
 
   return (
     <React.StrictMode>

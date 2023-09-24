@@ -42,7 +42,7 @@ const Footer = () => {
             className="rounded"
             sx= {
               {
-                width: {sm:600, xs:350},
+                width: {sm:550, xs:350},
                 height: {sm:400, xs: 250}
               }
             }
@@ -66,13 +66,13 @@ const Footer = () => {
               <span>
                 <LocalPhoneIcon className="fs-2" style={{ color: "#B18C50" }} />
               </span>{" "}
-              0694940024
+              0606662991
             </Typography>
             <Typography variant="h6" className="mb-4">
               <span>
                 <EmailIcon className="fs-2" style={{ color: "#B18C50" }} />
               </span>{" "}
-              EssileShop@gmail.com
+              Bnalimohamed54@gmail.com
             </Typography>
           </div>
         </div>

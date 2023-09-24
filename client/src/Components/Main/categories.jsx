@@ -15,8 +15,7 @@ const Categories = ({ category }) => {
   const [filterByName, setFilterByName] = useState('')
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
-  const minAndMax = data.map( product => product.attributes.productPrice ).sort(function(a, b){return a - b})
-  const [filterByPrice, setFilterByPrice] = useState(minAndMax[minAndMax.length-1])
+  const [filterByPrice, setFilterByPrice] = useState(350)
   useEffect(() => {
     async function fetchData() {
       try {

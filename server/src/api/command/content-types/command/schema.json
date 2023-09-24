@@ -4,7 +4,8 @@
   "info": {
     "singularName": "command",
     "pluralName": "commands",
-    "displayName": "command"
+    "displayName": "command",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -41,7 +42,7 @@
       },
       "type": "integer",
       "required": true,
-      "unique": true
+      "unique": false
     },
     "adresse": {
       "pluginOptions": {
