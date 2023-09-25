@@ -3,28 +3,23 @@ import {
   Box,
   IconButton,
   Link,
-  Menu,
-  MenuItem,
   Typography,
   Skeleton,
   Grid,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
 } from "@mui/material";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 const FetchPages = () => {
   const principalColor = "#B18C50";
 
-  const [anchorElNav, setAnchorElNav] = useState(null);
-
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
@@ -50,21 +45,81 @@ const FetchPages = () => {
 
     fetchData();
   }, []);
+  const [openNav, setOpenNav] = useState(false);
 
-  const insm = () => {
-    return data.map((page, index) => (
-      <MenuItem key={index} onClick={handleCloseNavMenu}>
-        <Typography
-          textAlign="center"
-          className="fs-4 fw-bold text-dark "
-          component="a"
-          href={`${page.attributes.root}`}
-        >
-          {page.attributes.categoryTitle}
-        </Typography>
-      </MenuItem>
-    ));
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+
+    setOpenNav(open);
   };
+
+  const list = () => (
+    <Box
+      sx={{
+        width: { sm: 250, xs: 200 },
+      }}
+      role="presentation"
+      onClick={toggleDrawer(false)}
+      onKeyDown={toggleDrawer(false)}
+    >
+      <List>
+        {loading ? (
+          Array.from(new Array(6)).map((_, index) => (
+            <ListItem key={index}>
+              <Skeleton variant="rectangular" height={30} />
+            </ListItem>
+          ))
+        ) : (
+          <>
+            <ListItem
+              disablePadding
+              className="text-end"
+              sx={{
+                transition: ".5s all",
+                width: "fit-content",
+                "&:hover": {
+                  color: "#B18C50",
+                  transform: "rotate(90deg)",
+                  cursor: "pointer",
+                },
+              }}
+            >
+              <CloseIcon />
+            </ListItem>
+            {data.map((cate, index) => (
+              <ListItem
+                key={index}
+                disablePadding
+                sx={{
+                  transition: ".5s all",
+                  "&:hover": {
+                    color: "#B18C50",
+                  },
+                }}
+              >
+                <ListItemButton
+                  className=""
+                  onClick={() => {
+                    window.location.pathname = cate.attributes.root;
+                  }}
+                >
+                  <ListItemText
+                    className="pagesinsm fs-4 fw-bold"
+                    primary={cate.attributes.categoryTitle}
+                  />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </>
+        )}
+      </List>
+    </Box>
+  );
 
   const inlg = () => {
     let className = "";
@@ -78,7 +133,6 @@ const FetchPages = () => {
         <Link
           key={index}
           href={`${page.attributes.root}`}
-          onClick={handleCloseNavMenu}
           sx={{
             mr: 3,
             color: { principalColor },
@@ -101,39 +155,14 @@ const FetchPages = () => {
           aria-label="account of current user"
           aria-controls="menu-appbar"
           aria-haspopup="true"
-          onClick={handleOpenNavMenu}
+          onClick={toggleDrawer(true)}
           color={principalColor}
         >
           <MenuIcon />
         </IconButton>
-        <Menu
-          id="menu-appbar"
-          anchorEl={anchorElNav}
-          anchorOrigin={{
-            vertical: "bottom",
-            horizontal: "left",
-          }}
-          keepMounted
-          transformOrigin={{
-            vertical: "top",
-            horizontal: "left",
-          }}
-          open={Boolean(anchorElNav)}
-          onClose={handleCloseNavMenu}
-          sx={{
-            display: { xs: "block", md: "none" },
-          }}
-        >
-          {loading ? (
-              Array.from(new Array(6)).map( (i, a) => (
-                <MenuItem key={a} onClick={handleCloseNavMenu}>
-                  <Skeleton variant="rounded" width={100} height={30} />
-                </MenuItem>
-              ))
-          ) : (
-            insm()
-          )}
-        </Menu>
+        <Drawer anchor="right" open={openNav} onClose={toggleDrawer(false)}>
+          {list()}
+        </Drawer>
       </Box>
       {/* logo */}
       <Typography
@@ -146,14 +175,23 @@ const FetchPages = () => {
           display: { xs: "flex", md: "none" },
           flexGrow: 1,
         }}
-        className="logo"
+        className="logo "
       >
-        <img src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_logo.svg?alt=media&token=cb5f4bc1-110d-4174-b5ee-7a097109d215" alt="" />
+        <img
+          style={{ objectFit: "cover", width: "120px", height: "100px" }}
+          src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_logo.svg?alt=media&token=cb5f4bc1-110d-4174-b5ee-7a097109d215"
+          alt=""
+        />
       </Typography>
       {/* navList */}
       {loading ? (
-        <Grid container wrap="wrap" gap={2} sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          {Array.from(new Array(6)).map( (i, a) => (
+        <Grid
+          container
+          wrap="wrap"
+          gap={2}
+          sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+        >
+          {Array.from(new Array(6)).map((i, a) => (
             <Skeleton key={a} variant="rounded" width={100} height={30} />
           ))}
         </Grid>

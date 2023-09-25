@@ -22,7 +22,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import { FaTiktok } from "react-icons/fa";
 import ReactWhatsapp from "react-whatsapp";
 import FetchPages from "../api/fetchPages";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Header = () => {
   if (localStorage.getItem("cart") === null)
@@ -37,6 +37,28 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const [isHeaderSticky, setIsHeaderSticky] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Check if the user has scrolled beyond a certain point (e.g., 100 pixels from the top)
+      const scrollY = window.scrollY;
+      if (scrollY > 100) {
+        setIsHeaderSticky(true);
+      } else {
+        setIsHeaderSticky(false);
+      }
+    };
+
+    // Attach the scroll event listener
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <>
@@ -159,7 +181,7 @@ const Header = () => {
           </ul>
         </div>
       </header>
-      <AppBar position="static" className="rounded bg-white header-2">
+      <AppBar position="static" className={isHeaderSticky?'sticky-header rounded bg-white header-2':'rounded bg-white header-2'}>
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {/* logo */}
@@ -194,25 +216,22 @@ const Header = () => {
             <FetchPages />
 
             {/* cart */}
-            <form action="/cart" method="get">
-              <Tooltip
-                title='سلة المشتريات'
-                arrow
+            <Tooltip
+              title='سلة المشتريات'
+              arrow
+            >
+              <IconButton
+                size="large"
+                onClick={() => window.location.pathname = '/cart'}
               >
-                <IconButton
-                  size="large"
-                  type="submit"
-                >
-                  <Badge badgeContent={String(JSON.parse(localStorage.getItem('cart')).length)} color="error">
-                    <LocalMallOutlinedIcon
-                      style={{ color: principalColor }} 
-                      className="fs-2"
-                    />
-                  </Badge >
-
-                </IconButton>
-              </Tooltip>
-            </form>
+                <Badge badgeContent={String(JSON.parse(localStorage.getItem('cart')).length)} color="error">
+                  <LocalMallOutlinedIcon
+                    style={{ color: principalColor }} 
+                    className="fs-2"
+                  />
+                </Badge >
+              </IconButton>
+            </Tooltip>
           </Toolbar>
         </Container>
       </AppBar>

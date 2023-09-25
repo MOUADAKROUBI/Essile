@@ -100,9 +100,8 @@ const Cart = () => {
         }
       })
       .catch((error) => {
-        // if(error.data)
-        //   enqueueSnackbar('ثم رفض طلبك المرجو إدخال المعلومات بشكل صحيح', 'error')
-        console.log(error)
+        if(error.data)
+          enqueueSnackbar('ثم رفض طلبك المرجو إدخال المعلومات بشكل صحيح', 'error')
       });
   }
 
@@ -212,7 +211,11 @@ const Cart = () => {
                 </Box>
               </form>
             </Box>
-            <Box className="cart-content text-center" sx={{}}>
+            <Box className="cart-content text-center"
+             sx={{
+              // width: {xs:'90%', sm:'100%'}
+             }}
+            >
               {cartProduct.map((product, index) => (
                 <Box
                   key={index}
@@ -220,7 +223,10 @@ const Cart = () => {
                   sx={{
                     display: "grid",
                     gridTemplateColumns: "1fr 1fr 1fr",
+                    gap: 1,
                     boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                    width: {sm: 'auto', xs: 390},
+                    overflowX: {sm: 'hidden', xs: 'scroll'}
                   }}
                 >
                   <Box
@@ -295,7 +301,9 @@ const Cart = () => {
                       </Box>
                     </Box>
                   </div>
-                  <Box className="deleteCommand-price text-start" sx={{}}>
+                  <Box className="deleteCommand-price text-start" 
+                    sx={{}}
+                  >
                     <Tooltip title="حذف هذا المنتج من سلة المشتريات">
                       <IconButton
                         className="mb-5"
@@ -327,7 +335,7 @@ const Cart = () => {
                   variant="h3"
                   className="fw-bold"
                   sx={{
-                    fontSize: { sm: "3rem", xs: "1.2rem" },
+                    fontSize: { sm: "3rem", xs: "2rem" },
                   }}
                 >
                   المجموع
@@ -337,10 +345,10 @@ const Cart = () => {
                   className="summ fw-bold"
                   sx={{
                     color: "#B18C50",
-                    fontSize: { sm: "3rem", xs: "1.2rem" },
+                    fontSize: { sm: "3rem", xs: "2rem" },
                   }}
                 >
-                  {sum}درهم
+                  {sum} درهم
                 </Typography>
               </Box>
               <Button
