@@ -71,7 +71,9 @@ const FetchPages = () => {
         {loading ? (
           Array.from(new Array(6)).map((_, index) => (
             <ListItem key={index}>
-              <Skeleton variant="rectangular" height={30} />
+              <ListItemText>
+                <Skeleton variant="rectangular" height={30} />
+              </ListItemText>
             </ListItem>
           ))
         ) : (

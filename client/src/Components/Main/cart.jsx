@@ -18,6 +18,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { enqueueSnackbar } from "notistack";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
+import { Helmet } from "react-helmet";
 
 const Cart = () => {
   if (!localStorage.getItem("cart"))
@@ -106,282 +107,291 @@ const Cart = () => {
   }
 
   return (
-    <Box
-      component="section"
-      className={
-        cartProduct.length
-          ? "my-5"
-          : "my-5 d-flex align-items-center text-center"
-      }
-      sx={!cartProduct.length ? { height: "78vh" } : { height: "100%" }}
-    >
-      {cartProduct.length ? (
-        <Box className="cart" sx={{}}>
-          <Box
-            className="form-products"
-            sx={{
-              display: "grid",
-              gridTemplateColumns: { md: "1fr 2fr", xs: "1fr" },
-              gap: { xs: 3, lg: 4 },
-            }}
-          >
+    <>
+      <Helmet>
+        <title>
+          سلة المشتريات
+        </title>
+        <meta name="description" content="سلة المشتريات" />
+      </Helmet>
+      
+      <Box
+        component="section"
+        className={
+          cartProduct.length
+            ? "my-5"
+            : "my-5 d-flex align-items-center text-center"
+        }
+        sx={!cartProduct.length ? { height: "78vh" } : { height: "100%" }}
+      >
+        {cartProduct.length ? (
+          <Box className="cart" sx={{}}>
             <Box
-              className="command-form rounded shadow p-3"
+              className="form-products"
               sx={{
-                height: 400,
-                width: { sm: "100%", xs: "85%" },
+                display: "grid",
+                gridTemplateColumns: { md: "1fr 2fr", xs: "1fr" },
+                gap: { xs: 3, lg: 4 },
               }}
             >
-              <form
-                action="/send-command"
-                method="post"
-                className=""
-                onSubmit={sendCommande}
+              <Box
+                className="command-form rounded shadow p-3 m-auto"
+                sx={{
+                  height: 400,
+                  width: { sm: "100%", xs: "85%" },
+                }}
               >
-                <Box className="name-box mb-3 ">
-                  <TextField
-                    id="name"
-                    label="الاسم الكامل"
-                    variant="filled"
-                    className="w-100"
-                    value={NameComplete}
-                    onChange={(e) => setNameComplete(e.target.value)}
-                  />
-                </Box>
-                <Box className="tele-box mb-3">
-                  <TextField
-                    id="telephone"
-                    label="رقم الهاتف"
-                    variant="filled"
-                    className="w-100"
-                    value={Telephone}
-                    onChange={(e) => setTelephone(e.target.value)}
-                  />
-                </Box>
-                <Box className="city-box mb-3">
-                  <InputLabel
-                    id="demo-simple-select-filled-label"
-                    className="fs-4"
-                  >
-                    المدينة
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-filled-label"
-                    variant="filled"
-                    id="demo-simple-select-filled"
-                    value={city}
-                    onChange={(e) => setCity(e.target.value)}
-                    autoWidth
-                    label="المدينة"
-                    className="w-100"
-                  >
-                    {cities.cities.data.map((city) => (
-                      <MenuItem key={city.names.en} value={city.names.ar}>
-                        {city.names.ar}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </Box>
-                <Box className="adress mb-3">
-                  <TextField
-                    id="adress"
-                    label="العنوان"
-                    variant="filled"
-                    className="w-100"
-                    value={Address}
-                    onChange={(e) => setAddress(e.target.value)}
-                  />
-                </Box>
-                <Box className="sendCommandBtn-box mb-3 text-center">
-                  <Button
-                    variant="contained"
-                    startIcon={<SendIcon className="ms-3" />}
-                    type="submit"
-                    className="fs-5"
-                    sx={{
-                      backgroundColor: "#B18C50",
-                      "&:hover": {
-                        background: "white",
-                        color: "#B18C50",
-                      },
-                    }}
-                  >
-                    إرسال الطلبية
-                  </Button>
-                </Box>
-              </form>
-            </Box>
-            <Box className="cart-content text-center"
-             sx={{
-              // width: {xs:'90%', sm:'100%'}
-             }}
-            >
-              {cartProduct.map((product, index) => (
-                <Box
-                  key={index}
-                  className="single-product mb-3 p-2 rounded border"
-                  sx={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr 1fr",
-                    gap: 1,
-                    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                    width: {sm: 'auto', xs: 390},
-                    overflowX: {sm: 'hidden', xs: 'scroll'}
-                  }}
+                <form
+                  action="/send-command"
+                  method="post"
+                  className=""
+                  onSubmit={sendCommande}
                 >
-                  <Box
-                    className="product-img"
-                    sx={{
-                      width: 150,
-                      height: 150,
-                    }}
-                  >
-                    <Box
-                      component='img'
-                      src={
-                        product.attributes.prductImage.data[0].attributes
-                          .formats.small.url
-                      }
-                      alt={
-                        product.attributes.prductImage.data[0].attributes
-                          .formats.small.url
-                      }
-                      className="rounded"
-                      sx= {
-                        {
-                          width: {sm: "100%", xs: '75%'},
-                          height: {sm: "100%", xs: '75%'},
-                          objectFit: 'cover'
-                        }
-                      }
+                  <Box className="name-box mb-3 ">
+                    <TextField
+                      id="name"
+                      label="الاسم الكامل"
+                      variant="filled"
+                      className="w-100"
+                      value={NameComplete}
+                      onChange={(e) => setNameComplete(e.target.value)}
                     />
                   </Box>
-                  <div className="product-title-quantity text-center">
-                    <Typography
-                      variant="h4"
-                      className="mb-5"
-                      sx={{
-                        fontSize: { sm: "2.125rem", xs: "1.2rem" },
-                      }}
-                    >
-                      {product.attributes.productTitile}
-                    </Typography>
-                    <Box
-                      className="quantity p-2 rounded align-items-center d-flex"
-                      sx={{
-                        
-                      }}
-                    >
-                      <Typography
-                        component="div"
-                        className="quantity-btns-title text-end fw-bold"
-                      >
-                        الكمية:
-                      </Typography>
-                      <Box className="quantity-btns-box d-flex">
-                        <Button
-                          variant="filled"
-                          className="ms-2 d-flex align-items-center"
-                          onClick={() => incrementCounter(index)}
-                        >
-                          <AddIcon className="ms-2" />
-                        </Button>
-                        <span className="mt-2 fw-bold">{counters[index]}</span>
-                        <Button
-                          variant="filled"
-                          className="ms-2"
-                          sx={{
-                            position: "relative",
-                            top: -5,
-                          }}
-                          onClick={() => decrementCounter(index)}
-                        >
-                          <MinimizeIcon className="" />
-                        </Button>
-                      </Box>
-                    </Box>
-                  </div>
-                  <Box className="deleteCommand-price text-start" 
-                    sx={{}}
-                  >
-                    <Tooltip title="حذف هذا المنتج من سلة المشتريات">
-                      <IconButton
-                        className="mb-5"
-                        onClick={() =>
-                          handleDeleteProduct(product.id, "success")
-                        }
-                      >
-                        <DeleteIcon className="text-danger fw-bold fs-4" />
-                      </IconButton>
-                    </Tooltip>
-                    <Typography
-                      variant="h4"
-                      className="fw-bold"
-                      sx={{
-                        fontSize: { sm: "2.225rem", xs: "1.2rem" },
-                      }}
-                    >
-                      {product.attributes.productPrice * counters[index]} درهم
-                    </Typography>
+                  <Box className="tele-box mb-3">
+                    <TextField
+                      id="telephone"
+                      label="رقم الهاتف"
+                      variant="filled"
+                      className="w-100"
+                      value={Telephone}
+                      onChange={(e) => setTelephone(e.target.value)}
+                    />
                   </Box>
-                </Box>
-              ))}
-              <hr className="my-4" />
-              <Box
-                className="summ-of-prices d-flex justify-content-between"
-                sx={{}}
-              >
-                <Typography
-                  variant="h3"
-                  className="fw-bold"
-                  sx={{
-                    fontSize: { sm: "3rem", xs: "2rem" },
-                  }}
-                >
-                  المجموع
-                </Typography>
-                <Typography
-                  variant="h3"
-                  className="summ fw-bold"
-                  sx={{
-                    color: "#B18C50",
-                    fontSize: { sm: "3rem", xs: "2rem" },
-                  }}
-                >
-                  {sum} درهم
-                </Typography>
+                  <Box className="city-box mb-3">
+                    <InputLabel
+                      id="demo-simple-select-filled-label"
+                      className="fs-4"
+                    >
+                      المدينة
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-filled-label"
+                      variant="filled"
+                      id="demo-simple-select-filled"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                      autoWidth
+                      label="المدينة"
+                      className="w-100"
+                    >
+                      {cities.cities.data.map((city) => (
+                        <MenuItem key={city.names.en} value={city.names.ar}>
+                          {city.names.ar}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </Box>
+                  <Box className="adress mb-3">
+                    <TextField
+                      id="adress"
+                      label="العنوان"
+                      variant="filled"
+                      className="w-100"
+                      value={Address}
+                      onChange={(e) => setAddress(e.target.value)}
+                    />
+                  </Box>
+                  <Box className="sendCommandBtn-box mb-3 text-center">
+                    <Button
+                      variant="contained"
+                      startIcon={<SendIcon className="ms-3" />}
+                      type="submit"
+                      className="fs-5"
+                      sx={{
+                        backgroundColor: "#B18C50",
+                        "&:hover": {
+                          background: "white",
+                          color: "#B18C50",
+                        },
+                      }}
+                    >
+                      إرسال الطلبية
+                    </Button>
+                  </Box>
+                </form>
               </Box>
-              <Button
-                variant="secondary"
-                className="text-danger fw-bold fs-5"
-                onClick={() => handleDeleteAllProductsInCart("success")}
-                startIcon={<DeleteIcon className="ms-2"/>}
+              <Box className="cart-content text-center"
+               sx={{
+                // width: {xs:'90%', sm:'100%'}
+               }}
               >
-                حذف جميع المنتجات من سلة المشتريات
-              </Button>
+                {cartProduct.map((product, index) => (
+                  <Box
+                    key={index}
+                    className="single-product mb-3 p-2 rounded border"
+                    sx={{
+                      display: "grid",
+                      gridTemplateColumns: "1fr 1fr 1fr",
+                      gap: 1,
+                      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                      width: {sm: 'auto', xs: 390},
+                      overflowX: {sm: 'hidden', xs: 'scroll'}
+                    }}
+                  >
+                    <Box
+                      className="product-img"
+                      sx={{
+                        width: 150,
+                        height: 150,
+                      }}
+                    >
+                      <Box
+                        component='img'
+                        src={
+                          product.attributes.prductImage.data[0].attributes
+                            .formats.small.url
+                        }
+                        alt={
+                          product.attributes.prductImage.data[0].attributes
+                            .formats.small.url
+                        }
+                        className="rounded"
+                        sx= {
+                          {
+                            width: {sm: "100%", xs: '75%'},
+                            height: {sm: "100%", xs: '75%'},
+                            objectFit: 'cover'
+                          }
+                        }
+                      />
+                    </Box>
+                    <div className="product-title-quantity text-center">
+                      <Typography
+                        variant="h4"
+                        className="mb-5"
+                        sx={{
+                          fontSize: { sm: "2.125rem", xs: "1.2rem" },
+                        }}
+                      >
+                        {product.attributes.productTitile}
+                      </Typography>
+                      <Box
+                        className="quantity p-2 rounded align-items-center d-flex"
+                        sx={{
+                          
+                        }}
+                      >
+                        <Typography
+                          component="div"
+                          className="quantity-btns-title text-end fw-bold"
+                        >
+                          الكمية:
+                        </Typography>
+                        <Box className="quantity-btns-box d-flex">
+                          <Button
+                            variant="filled"
+                            className="ms-2 d-flex align-items-center"
+                            onClick={() => incrementCounter(index)}
+                          >
+                            <AddIcon className="ms-2" />
+                          </Button>
+                          <span className="mt-2 fw-bold">{counters[index]}</span>
+                          <Button
+                            variant="filled"
+                            className="ms-2"
+                            sx={{
+                              position: "relative",
+                              top: -5,
+                            }}
+                            onClick={() => decrementCounter(index)}
+                          >
+                            <MinimizeIcon className="" />
+                          </Button>
+                        </Box>
+                      </Box>
+                    </div>
+                    <Box className="deleteCommand-price text-start" 
+                      sx={{}}
+                    >
+                      <Tooltip title="حذف هذا المنتج من سلة المشتريات">
+                        <IconButton
+                          className="mb-5"
+                          onClick={() =>
+                            handleDeleteProduct(product.id, "success")
+                          }
+                        >
+                          <DeleteIcon className="text-danger fw-bold fs-4" />
+                        </IconButton>
+                      </Tooltip>
+                      <Typography
+                        variant="h4"
+                        className="fw-bold"
+                        sx={{
+                          fontSize: { sm: "2.225rem", xs: "1.2rem" },
+                        }}
+                      >
+                        {product.attributes.productPrice * counters[index]} درهم
+                      </Typography>
+                    </Box>
+                  </Box>
+                ))}
+                <hr className="my-4" />
+                <Box
+                  className="summ-of-prices d-flex justify-content-between"
+                  sx={{}}
+                >
+                  <Typography
+                    variant="h3"
+                    className="fw-bold"
+                    sx={{
+                      fontSize: { sm: "3rem", xs: "2rem" },
+                    }}
+                  >
+                    المجموع
+                  </Typography>
+                  <Typography
+                    variant="h3"
+                    className="summ fw-bold"
+                    sx={{
+                      color: "#B18C50",
+                      fontSize: { sm: "3rem", xs: "2rem" },
+                    }}
+                  >
+                    {sum} درهم
+                  </Typography>
+                </Box>
+                <Button
+                  variant="secondary"
+                  className="text-danger fw-bold fs-5"
+                  onClick={() => handleDeleteAllProductsInCart("success")}
+                  startIcon={<DeleteIcon className="ms-2"/>}
+                >
+                  حذف جميع المنتجات من سلة المشتريات
+                </Button>
+              </Box>
             </Box>
           </Box>
-        </Box>
-      ) : (
-        <Typography
-          variant="h3"
-          className="fw-bold"
-          sx={{
-            fontSize: { md: "2.5rem", sm: "2rem", xs: "1.5rem" },
-          }}
-        >
-          <span>
-            {" "}
-            سلة المشتريات خالية! اكتشف تشكيلتنا و{" "}
-            <a href="/" className="" style={{ color: "#B18C50" }}>
-              ابدأ بالتسوق
-            </a>{" "}
-            في متجرنا الآن للعثور على أفضل العروض والمنتجات الرائعة
-          </span>
-        </Typography>
-      )}
-    </Box>
-  );
+        ) : (
+          <Typography
+            variant="h3"
+            className="fw-bold"
+            sx={{
+              fontSize: { md: "2.5rem", sm: "2rem", xs: "1.5rem" },
+            }}
+          >
+            <span>
+              {" "}
+              سلة المشتريات خالية! اكتشف تشكيلتنا و{" "}
+              <a href="/" className="" style={{ color: "#B18C50" }}>
+                ابدأ بالتسوق
+              </a>{" "}
+              في متجرنا الآن للعثور على أفضل العروض والمنتجات الرائعة
+            </span>
+          </Typography>
+        )}
+      </Box>
+    </>
+  )
 };
 
 export default Cart;
