@@ -11,15 +11,11 @@ import {
   Box,
   Tooltip,
 } from "@mui/material";
-import Badge from '@mui/material/Badge';
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
+import Badge from "@mui/material/Badge";
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import CallIcon from "@mui/icons-material/Call";
 import EmailIcon from "@mui/icons-material/Email";
 import LanguageIcon from "@mui/icons-material/Language";
-import { FaTiktok } from "react-icons/fa";
 import ReactWhatsapp from "react-whatsapp";
 import FetchPages from "../api/fetchPages";
 import { useEffect, useState } from "react";
@@ -52,11 +48,11 @@ const Header = () => {
     };
 
     // Attach the scroll event listener
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Clean up the event listener when the component unmounts
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
@@ -64,22 +60,18 @@ const Header = () => {
     <>
       <Box
         className="offers-bord text-center py-3 rounded"
-        component='header'
-        sx= {
-          {
-            backgroundColor: '#B18C50',
-            width: '100%'
-          }
-        }
+        component="header"
+        sx={{
+          backgroundColor: "#B18C50",
+          width: "100%",
+        }}
       >
         <Typography
           variant="h2"
           className="fw-bold text-white text-decoration-none"
-          sx= {
-            {
-              fontSize: {md: '2.5rem', sm: '2rem', xs: '1.5rem'}
-            }
-          }
+          sx={{
+            fontSize: { md: "2.5rem", sm: "2rem", xs: "1.5rem" },
+          }}
         >
           لا توجد عروض بعد
         </Typography>
@@ -126,7 +118,7 @@ const Header = () => {
             className="d-flex ms-3"
           >
             <CallIcon style={{ marginRight: 5 }} />{" "}
-            <span className="text-dark me-2">0606662991</span>
+            <span className="text-dark me-2">0694940024</span>
           </Typography>
           <Typography
             variant="h6"
@@ -148,7 +140,11 @@ const Header = () => {
                 className="nav-link social-icons fs-2"
                 style={{ cursor: "pointer" }}
               >
-                <WhatsAppIcon />
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/whatsapp-social-media-svgrepo-com%20(1).svg?alt=media&token=fa466d81-af02-47e5-b8f2-d225c8daa895"
+                  alt=""
+                  style={{ width: 25 }}
+                />
               </ReactWhatsapp>
             </li>
             <li className="nav-item">
@@ -157,7 +153,11 @@ const Header = () => {
                 target="black"
                 className="nav-link social-icons fs-2"
               >
-                <FacebookIcon />
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/facebook-svgrepo-com.svg?alt=media&token=0134cab1-a504-4e56-a629-904fd1bc4d24"
+                  alt=""
+                  style={{ width: 25 }}
+                />
               </a>
             </li>
             <li className="nav-item">
@@ -166,7 +166,11 @@ const Header = () => {
                 target="black"
                 className="nav-link social-icons fs-2"
               >
-                <InstagramIcon />
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/instagram-1-svgrepo-com.svg?alt=media&token=4199e442-6c17-4f3b-9534-2945bb957d23"
+                  alt=""
+                  style={{ width: 25 }}
+                />
               </a>
             </li>
             <li className="nav-item d-flex align-items-center">
@@ -175,13 +179,24 @@ const Header = () => {
                 target="black"
                 className="nav-link social-icons fs-4"
               >
-                <FaTiktok />
+                <img
+                  src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/tiktok-icon-white-1-logo-svgrepo-com.svg?alt=media&token=aa9db365-f947-439d-8d8a-58abe329d200"
+                  alt=""
+                  style={{ width: 25 }}
+                />
               </a>
             </li>
           </ul>
         </div>
       </header>
-      <AppBar position="static" className={isHeaderSticky?'sticky-header rounded bg-white header-2':'rounded bg-white header-2'}>
+      <AppBar
+        position="static"
+        className={
+          isHeaderSticky
+            ? "sticky-header rounded bg-white header-2"
+            : "rounded bg-white header-2"
+        }
+      >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
             {/* logo */}
@@ -193,22 +208,20 @@ const Header = () => {
               sx={{
                 mr: 2,
                 display: { xs: "none", md: "flex" },
-                width: '160px',
-                height: '100px',
+                width: "160px",
+                height: "100px",
               }}
               className="logo"
             >
               <Box
-                component='img'
-                src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_logo.svg?alt=media&token=cb5f4bc1-110d-4174-b5ee-7a097109d215" alt="" 
-                sx = {
-                  {
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover'
-                  }
-                }
-
+                component="img"
+                src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_logo.svg?alt=media&token=cb5f4bc1-110d-4174-b5ee-7a097109d215"
+                alt=""
+                sx={{
+                  width: "100%",
+                  height: "100%",
+                  objectFit: "cover",
+                }}
               />
             </Typography>
 
@@ -216,20 +229,22 @@ const Header = () => {
             <FetchPages />
 
             {/* cart */}
-            <Tooltip
-              title='سلة المشتريات'
-              arrow
-            >
+            <Tooltip title="سلة المشتريات" arrow>
               <IconButton
                 size="large"
-                onClick={() => window.location.pathname = '/cart'}
+                onClick={() => (window.location.pathname = "/cart")}
               >
-                <Badge badgeContent={String(JSON.parse(localStorage.getItem('cart')).length)} color="error">
+                <Badge
+                  badgeContent={String(
+                    JSON.parse(localStorage.getItem("cart")).length
+                  )}
+                  color="error"
+                >
                   <LocalMallOutlinedIcon
-                    style={{ color: principalColor }} 
+                    style={{ color: principalColor }}
                     className="fs-2"
                   />
-                </Badge >
+                </Badge>
               </IconButton>
             </Tooltip>
           </Toolbar>

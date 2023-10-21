@@ -11,6 +11,7 @@ import FetchProducts from "../../api/fetchProducts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Helmet } from 'react-helmet';
+import reactGa from 'react-ga'
 
 const Categories = ({ category }) => {
   const [filterByName, setFilterByName] = useState('')
@@ -35,6 +36,10 @@ const Categories = ({ category }) => {
 
     fetchData();
   }, [category]);
+
+  useEffect(() => {
+    reactGa.pageview(window.location.pathname)
+  }, [])
 
   async function handleFilterByName(e) {
     setFilterByName(e.target.value)

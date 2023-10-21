@@ -11,19 +11,16 @@ import "../css/footer.css";
 import ReactWhatsapp from "react-whatsapp";
 
 const Footer = () => {
-
   return (
     <footer className="shadow-lg justify-centent-center">
-      <Box 
+      <Box
         className=" text-white"
-        sx= {
-          {
-            display: 'grid',
-            gridTemplateColumns: {lg: '1fr 1fr 1fr', md: '2fr 1fr'},
-            justifyContent: 'center',
-            gap: 3,
-          }
-        }
+        sx={{
+          display: "grid",
+          gridTemplateColumns: { lg: "1fr 1fr 1fr", md: "2fr 1fr" },
+          justifyContent: "center",
+          gap: 3,
+        }}
       >
         <div className=" google-maps text-center">
           <Typography
@@ -33,19 +30,17 @@ const Footer = () => {
             موقعناعلى الخريطة
           </Typography>
           <Box
-            component='iframe'
+            component="iframe"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3453.612234183615!2d-9.563779725234534!3d30.047980618404576!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xdb393d3bddcb8ef%3A0xd249679bcb38553b!2sEssile!5e0!3m2!1sen!2sma!4v1694089544401!5m2!1sen!2sma"
-            style={{border:0}}
+            style={{ border: 0 }}
             allowFullScreen
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
             className="rounded"
-            sx= {
-              {
-                width: {sm:550, xs:350},
-                height: {sm:400, xs: 250}
-              }
-            }
+            sx={{
+              width: { sm: 550, xs: 350 },
+              height: { sm: 400, xs: 250 },
+            }}
           ></Box>
         </div>
         <div className="col">
@@ -66,7 +61,7 @@ const Footer = () => {
               <span>
                 <LocalPhoneIcon className="fs-2" style={{ color: "#B18C50" }} />
               </span>{" "}
-              0606662991
+              0694940024
             </Typography>
             <Typography variant="h6" className="mb-4">
               <span>
@@ -95,7 +90,11 @@ const Footer = () => {
                   className="nav-link social-icons"
                   style={{ cursor: "pointer" }}
                 >
-                  <WhatsAppIcon className="fs-2 fw-bold" />
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/whatsapp-social-media-svgrepo-com%20(1).svg?alt=media&token=fa466d81-af02-47e5-b8f2-d225c8daa895"
+                    alt=""
+                    style={{ width: 25 }}
+                  />
                 </ReactWhatsapp>
               </li>
               <li className="nav-item">
@@ -104,7 +103,11 @@ const Footer = () => {
                   target="black"
                   className="nav-link social-icons"
                 >
-                  <FacebookIcon className="fs-2 fw-bold" />
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/facebook-svgrepo-com.svg?alt=media&token=0134cab1-a504-4e56-a629-904fd1bc4d24"
+                    alt=""
+                    style={{ width: 25 }}
+                  />
                 </a>
               </li>
               <li className="nav-item">
@@ -113,7 +116,11 @@ const Footer = () => {
                   target="black"
                   className="nav-link social-icons"
                 >
-                  <InstagramIcon className="fs-2 fw-bold" />
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/instagram-1-svgrepo-com.svg?alt=media&token=4199e442-6c17-4f3b-9534-2945bb957d23"
+                    alt=""
+                    style={{ width: 25 }}
+                  />
                 </a>
               </li>
               <li className="nav-item">
@@ -122,7 +129,11 @@ const Footer = () => {
                   target="black"
                   className="nav-link social-icons"
                 >
-                  <FaTiktok className="fs-2 fw-bold" />
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/tiktok-icon-white-1-logo-svgrepo-com.svg?alt=media&token=aa9db365-f947-439d-8d8a-58abe329d200"
+                    alt=""
+                    style={{ width: 25 }}
+                  />
                 </a>
               </li>
             </ul>

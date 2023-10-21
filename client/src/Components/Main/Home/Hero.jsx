@@ -9,7 +9,9 @@ const Hero = () => {
           <Typography
             variant="h1"
             className="text-center tw-bold hero-title mb-2"
-            sx={{}}
+            sx={{
+              // fontFamily: 'Noto Kufi Arabic, sans-serif',  
+            }}
           >
             مرحبا بك في متجر <span className="brand-name fw-bold">إسيل</span>
           </Typography>

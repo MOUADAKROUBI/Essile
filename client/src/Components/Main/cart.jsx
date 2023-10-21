@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import cities from "../../api/cities";
 import AddIcon from "@mui/icons-material/Add";
@@ -19,8 +19,13 @@ import { enqueueSnackbar } from "notistack";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import { Helmet } from "react-helmet";
+import reactGa from 'react-ga';
 
 const Cart = () => {
+  useEffect(() => {
+    reactGa.pageview(window.location.pathname)
+  }, [])
+
   if (!localStorage.getItem("cart"))
     localStorage.setItem("cart", JSON.stringify([]));
 
@@ -28,12 +33,17 @@ const Cart = () => {
     JSON.parse(localStorage.getItem("cart"))
   );
 
+  const year = new Date().getFullYear()
+  const month = new Date().getMonth()+1
+  const day = new Date().getDate()
+
   const [CommandID, setCommandID] = useState(uuidv4());
   const [NameComplete, setNameComplete] = useState("");
   const [Telephone, setTelephone] = useState(undefined);
   const [city, setCity] = useState("");
   const [Address, setAddress] = useState("");
   const [counters, setCounters] = useState(cartProduct.map(() => 1));
+  const [commandDate, setCommandDate] = useState(`${day}/${month}/${year}`)
 
   let sum = 0;
   let newarray = cartProduct.map(
@@ -77,7 +87,8 @@ const Cart = () => {
         telephone: Telephone,
         city: city,
         adresse: Address,
-        products: cartProduct.map( product => product.id)
+        products: cartProduct.map( product => product.id),
+        commandDate: commandDate
       },
     };
 
@@ -96,14 +107,19 @@ const Cart = () => {
           setAddress('')
           setCity('')
           setTelephone('')
+          setCommandDate(`${day}/${month}/${year}`)
         } else {
           enqueueSnackbar('ثم رفض طلبك المرجو إدخال المعلومات بشكل صحيح', 'error')
         }
       })
       .catch((error) => {
-        if(error.data)
-          enqueueSnackbar('ثم رفض طلبك المرجو إدخال المعلومات بشكل صحيح', 'error')
+        if (error.response && error.response.data) {
+          enqueueSnackbar('ثم رفض طلبك المرجو إدخال المعلومات بشكل صحيح', 'error');
+        } else {
+          console.error(error); // Log the full error for debugging.
+        }
       });
+      
   }
 
   return (

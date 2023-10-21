@@ -4,8 +4,14 @@ import OffersAndCompetitions from "./Home/offersAndCompetitions";
 import NewslettreSignUp from "./Home/NewslettreSignUp";
 import "../../css/homeStyle.css";
 import { Helmet } from "react-helmet";
+import reactGa from 'react-ga'
+import { useEffect } from "react";
 
 const Home = () => {
+  useEffect(() => {
+    reactGa.pageview(window.location.pathname)
+  }, [])
+
   return (
     <>
       <Helmet>

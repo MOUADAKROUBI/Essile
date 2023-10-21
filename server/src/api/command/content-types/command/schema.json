@@ -66,6 +66,15 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product"
+    },
+    "commandDate": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
     }
   }
 }

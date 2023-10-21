@@ -9,8 +9,13 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { Helmet } from "react-helmet";
+import reactGa from 'react-ga'
 
 const SingleProduct = () => {
+  useEffect(() => {
+    reactGa.pageview(window.location.pathname)
+  }, [])
+
   const { id } = useParams();
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

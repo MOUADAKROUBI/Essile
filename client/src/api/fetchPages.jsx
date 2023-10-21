@@ -113,6 +113,11 @@ const FetchPages = () => {
                   <ListItemText
                     className="pagesinsm fs-4 fw-bold"
                     primary={cate.attributes.categoryTitle}
+                    sx= {
+                      {
+                        fontFamily: 'Noto Kufi Arabic, sans-serif',
+                      }
+                    }
                   />
                 </ListItemButton>
               </ListItem>
@@ -128,8 +133,8 @@ const FetchPages = () => {
 
     return data.map((page, index) => {
       if (page.attributes.root === "/" + window.location.href.split("/")[3])
-        className = "fs-6 fw-bold text-dark category-link active";
-      else className = "fs-6 fw-bold text-dark category-link";
+        className = "fs-6 text-dark category-link active";
+      else className = "fs-6 text-dark category-link";
 
       return (
         <Link
@@ -139,6 +144,7 @@ const FetchPages = () => {
             mr: 3,
             color: { principalColor },
             display: "block",
+            fontFamily: 'Noto Kufi Arabic, sans-serif'
           }}
           underline="none"
           className={className}

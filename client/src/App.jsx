@@ -9,6 +9,7 @@ import Categories from '../src/Components/Main/categories';
 import SingleProduct from '../src/Components/Main/singleProduct';
 import { SnackbarProvider } from 'notistack';
 
+
 const App = () => {
 
   return (
