@@ -10,11 +10,12 @@ import axios from "axios";
 import { enqueueSnackbar } from "notistack";
 import { Helmet } from "react-helmet";
 import reactGa from 'react-ga'
+import { motion } from "framer-motion";
 
 const SingleProduct = () => {
-  useEffect(() => {
-    reactGa.pageview(window.location.pathname)
-  }, [])
+  // useEffect(() => {
+  //   reactGa.pageview(window.location.pathname)
+  // }, [])
 
   const { id } = useParams();
   const [data, setData] = useState([]);
@@ -90,117 +91,137 @@ const SingleProduct = () => {
                 "rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px",
             }}
           >
-            <Box
-              className="product-img"
-              sx={{
-                height: { sm: 500, xs: 400 },
-              }}
+            <motion.div 
+            initial={
+              {opacity: 0, x:80}
+            }
+            transition={{duration: 1}}
+            whileInView= {
+              {opacity: 1, x:0}
+            }
             >
-              {data.attributes.prductImage.data.map((img, index) => (
-                <Box
-                  component="img"
-                  key={index}
-                  src={img.attributes.formats.medium.url}
-                  alt={img.attributes.formats.medium.hash}
-                  className="rounded"
-                  sx={{
-                    width: "100%",
-                    height: "100%",
-                  }}
-                />
-              ))}
-            </Box>
-            <Box className="product-info">
-              <Typography
-                variant="h3"
-                className="product-title fw-bold"
-                gutterBottom
+              <Box
+                className="product-img"
                 sx={{
-                  fontSize: {
-                    lg: "3rem",
-                    md: "2.5rem",
-                    sm: "2rem",
-                    xs: "1.5rem",
-                  },
+                  height: { sm: 500, xs: 400 },
                 }}
               >
-                {data.attributes.productTitile}
-              </Typography>
-              <Typography
-                variant="h4"
-                className="product-price"
-                gutterBottom
-                sx={{
-                  fontSize: { md: "2.5rem", sm: "2rem", xs: "1.5rem" },
-                }}
-              >
-                {data.attributes.productPrice} درهم
-              </Typography>
-              <Typography
-                paragraph
-                className="product-descreption text-muted fs-5"
-                gutterBottom
-                sx={{
-                  fontSize: {
-                    lg: "2.5rem",
-                    md: "2rem",
-                    sm: "1.5rem",
-                    xs: "1rem",
-                  },
-                }}
-              >
-                {data.attributes.productDescreption}
-              </Typography>
-              <Typography
-                paragraph
-                gutterBottom
-                className="fs-5 fw-bold text-center"
-                sx={{
-                  color: "lightgreen",
-                }}
-              >
-                <ReactWhatsapp
-                  number="+212606-662991"
-                  message={`${window.location.href}`}
-                  element="a"
-                  style={{ cursor: "pointer" }}
-                >
-                  <WhatsAppIcon className=" ms-2" />
-                  <span>أطلب إستفسار حول المنتج</span>
-                </ReactWhatsapp>
-              </Typography>
-              <Box className="btns text-center" sx={{}}>
-                <Button
-                  className="add-to-cart fs-5 fw-bold"
-                  startIcon={<AddShoppingCartIcon className="ms-2" />}
-                  sx={{
-                    backgroundColor: "#B18C50",
-                    mb: { xs: 1, md: 0 },
-                    color: "#ffffff",
-                    "&:hover": {
-                      color: "#B18C50",
-                    },
-                  }}
-                  onClick={() => handleAddToCart(data.id, "success")}
-                >
-                  أضف إلى سلة متنجاتك
-                </Button>
-                <Button
-                  className="command-product fs-5 fw-bold me-3"
-                  startIcon={<AddIcon className="ms-2" />}
-                  sx={{
-                    backgroundColor: "#000",
-                    color: "#ffffff",
-                    "&:hover": {
-                      color: "#B18C50",
-                    },
-                  }}
-                  onClick={() => (window.location.href = "/cart")}
-                >
-                  أطلب المنتج
-                </Button>
+                {data.attributes.prductImage.data.map((img, index) => (
+                  <Box
+                    component="img"
+                    key={index}
+                    src={img.attributes.formats.medium.url}
+                    alt={img.attributes.formats.medium.hash}
+                    className="rounded"
+                    sx={{
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                ))}
               </Box>
-            </Box>
+            </motion.div>
+            <motion.div 
+              initial={
+                {opacity: 0, x:-80}
+              }
+              transition={{duration: 1}}
+              whileInView= {
+                {opacity: 1, x:0}
+              }
+            >
+              <Box className="product-info">
+                <Typography
+                  variant="h3"
+                  className="product-title fw-bold"
+                  gutterBottom
+                  sx={{
+                    fontSize: {
+                      lg: "3rem",
+                      md: "2.5rem",
+                      sm: "2rem",
+                      xs: "1.5rem",
+                    },
+                  }}
+                >
+                  {data.attributes.productTitile}
+                </Typography>
+                <Typography
+                  variant="h4"
+                  className="product-price"
+                  gutterBottom
+                  sx={{
+                    fontSize: { md: "2.5rem", sm: "2rem", xs: "1.5rem" },
+                  }}
+                >
+                  {data.attributes.productPrice} درهم
+                </Typography>
+                <Typography
+                  paragraph
+                  className="product-descreption text-muted fs-5"
+                  gutterBottom
+                  sx={{
+                    fontSize: {
+                      lg: "2.5rem",
+                      md: "2rem",
+                      sm: "1.5rem",
+                      xs: "1rem",
+                    },
+                  }}
+                >
+                  {data.attributes.productDescreption}
+                </Typography>
+                <Typography
+                  paragraph
+                  gutterBottom
+                  className="fs-5 fw-bold text-center"
+                  sx={{
+                    color: "lightgreen",
+                  }}
+                >
+                  <ReactWhatsapp
+                    number="+212606-662991"
+                    message={`${window.location.href}`}
+                    element="a"
+                    style={{ cursor: "pointer" }}
+                  >
+                    <WhatsAppIcon className=" ms-2" />
+                    <span>أطلب إستفسار حول المنتج</span>
+                  </ReactWhatsapp>
+                </Typography>
+                <Box className="btns text-center" sx={{}}>
+                  <Button
+                    className="add-to-cart fs-5 fw-bold"
+                    startIcon={<AddShoppingCartIcon className="ms-2" />}
+                    sx={{
+                      backgroundColor: "#B18C50",
+                      mb: { xs: 1, md: 0 },
+                      color: "#ffffff",
+                      "&:hover": {
+                        color: "#B18C50",
+                      },
+                    }}
+                    onClick={() => handleAddToCart(data.id, "success")}
+                  >
+                    أضف إلى سلة متنجاتك
+                  </Button>
+                  <Button
+                    className="command-product fs-5 fw-bold me-3"
+                    startIcon={<AddIcon className="ms-2" />}
+                    sx={{
+                      backgroundColor: "#000",
+                      color: "#ffffff",
+                      "&:hover": {
+                        color: "#B18C50",
+                      },
+                    }}
+                    onClick={() => (window.location.href = "/cart")}
+                  >
+                    أطلب المنتج
+                  </Button>
+                </Box>
+              </Box>
+            </motion.div>
           </Box>
         )}
       </div>

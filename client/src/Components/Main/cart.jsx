@@ -22,9 +22,9 @@ import { Helmet } from "react-helmet";
 import reactGa from 'react-ga';
 
 const Cart = () => {
-  useEffect(() => {
-    reactGa.pageview(window.location.pathname)
-  }, [])
+  // useEffect(() => {
+  //   reactGa.pageview(window.location.pathname)
+  // }, [])
 
   if (!localStorage.getItem("cart"))
     localStorage.setItem("cart", JSON.stringify([]));

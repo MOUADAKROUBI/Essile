@@ -4,6 +4,7 @@ import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useEffect, useState } from 'react';
 import {  enqueueSnackbar } from 'notistack';
 import axios from 'axios';
+import { motion } from 'framer-motion';
 
 const MostSallers = () => {
   const [products, setProducts] = useState([])
@@ -43,6 +44,7 @@ const MostSallers = () => {
       window.location.href = '/cart'
     }, 2000);
   }
+
   return (
     <Box
       className='mostSallers my-5'
@@ -60,113 +62,123 @@ const MostSallers = () => {
       >
         الأكثر طلبا
       </Typography>
-      <Box 
-        className="products"
-        sx={
-          {
-            display: 'grid',
-              gridTemplateColumns: {
-                xl: 'repeat(4, 1fr)',
-                md: 'repeat(3, 1fr)',
-                sm: 'repeat(2, 1fr)',
-                xs: 'repeat(1, 1fr)',
-              },
-              gap: 5,
-          }
+      <motion.div
+        initial={
+          {opacity: 0, y:-50}
+        }
+        transition={{duration: 1}}
+        whileInView= {
+          {opacity: 1, y:0}
         }
       >
-        {
-          (loading? Array.from(new Array(3)):products).map((product, index) => (
-            <Box 
-              key={index} 
-              component='article'
-              className="product rounded p-2"
-              sx={
-                {
-                  transition: '.3s all linear',
-                  boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
-                  '&:hover': {
-                    boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+        <Box 
+          className="products"
+          sx={
+            {
+              display: 'grid',
+                gridTemplateColumns: {
+                  xl: 'repeat(4, 1fr)',
+                  md: 'repeat(3, 1fr)',
+                  sm: 'repeat(2, 1fr)',
+                  xs: 'repeat(1, 1fr)',
+                },
+                gap: 5,
+            }
+          }
+        >
+          {
+            (loading? Array.from(new Array(3)):products).map((product, index) => (
+              <Box 
+                key={index} 
+                component='article'
+                className="product rounded p-2"
+                sx={
+                  {
+                    transition: '.3s all linear',
+                    boxShadow: 'rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px',
+                    '&:hover': {
+                      boxShadow: 'rgba(0, 0, 0, 0.35) 0px 5px 15px',
+                    }
                   }
                 }
-              }
-            >
-              {
-                product ?(
-                  product.attributes.prductImage.data.map((img, index) => (
-                      <Box
-                        key={index}
-                        className="product-img d-flex justify-content-center"
-                        sx={{
-                          height: { md: 300, xs: 350 },
-                        }}
-                      >
-                        <a href={"/product/" + product.id}>
-                          <img
-                            className="rounded"
-                            src={
-                              img.attributes.formats.medium.url
-                            }
-                            alt={product.attributes.productTitile}
-                            style={{
-                              width: "100%",
-                              height: "100%",
-                              objectFit: "cover",
-                            }}
-                          />
-                        </a>
-                      </Box>
-                    ))
-                ):(
-                  <Skeleton variant="rectangular" height={218} />
-                )
-              }
-              <Box 
-                className="product-info text-center mt-2"
               >
                 {
                   product ?(
-                  <Typography
-                    variant='h5'
-                    component='a'
-                    href={"/product/" + product.id}
-                    mb={1}
-                    className='product-title fw-bold text-dark my-2'
-                  >
-                      {product.attributes.productTitile}
-                  </Typography>
-                  ):(
-                    <Skeleton />
-                  )
-                }
-                {
-                  product ?(
-                    <div className="row">
-                      <div className="col product-price d-flex fw-bold fs-4 align-items-center text-end">
-                        {product.attributes.productPrice} درهم
-                      </div>
-                      <div className="col d-flex justify-content-end add-to cart">
-                        <IconButton
-                          onClick={() => handleAddToCart(product.id, 'success')}
+                    product.attributes.prductImage.data.map((img, index) => (
+                        <Box
+                          key={index}
+                          className="product-img d-flex justify-content-center"
+                          sx={{
+                            height: { md: 300, xs: 350 },
+                          }}
                         >
-                          <Tooltip
-                            title="أضف هذا المنتوج إلى سلة منتجاتك"
-                            arrow
-                          >
-                            <AddShoppingCartIcon className='fs-3'/>
-                          </Tooltip>
-                        </IconButton>
-                      </div>
-                    </div>
+                          <a href={"/product/" + product.id}>
+                            <img
+                              className="rounded"
+                              src={
+                                img.attributes.formats.medium.url
+                              }
+                              alt={product.attributes.productTitile}
+                              style={{
+                                width: "100%",
+                                height: "100%",
+                                objectFit: "cover",
+                              }}
+                            />
+                          </a>
+                        </Box>
+                      ))
                   ):(
-                    <Skeleton width="60%" />
+                    <Skeleton variant="rectangular" height={218} />
                   )
                 }
+                <Box 
+                  className="product-info text-center mt-2"
+                >
+                  {
+                    product ?(
+                    <Typography
+                      variant='h5'
+                      component='a'
+                      href={"/product/" + product.id}
+                      mb={1}
+                      className='product-title fw-bold text-dark my-2'
+                    >
+                        {product.attributes.productTitile}
+                    </Typography>
+                    ):(
+                      <Skeleton />
+                    )
+                  }
+                  {
+                    product ?(
+                      <div className="row">
+                        <div className="col product-price d-flex fw-bold fs-4 align-items-center text-end">
+                          {product.attributes.productPrice} درهم
+                        </div>
+                        <div className="col d-flex justify-content-end add-to cart">
+                          <IconButton
+                            onClick={() => handleAddToCart(product.id, 'success')}
+                          >
+                            <Tooltip
+                              title="أضف هذا المنتوج إلى سلة منتجاتك"
+                              arrow
+                            >
+                              <AddShoppingCartIcon className='fs-3'/>
+                            </Tooltip>
+                          </IconButton>
+                        </div>
+                      </div>
+                    ):(
+                      <Skeleton width="60%" />
+                    )
+                  }
+                </Box>
               </Box>
-            </Box>
-          ))
-        }
-      </Box>
+            ))
+          }
+        </Box>
+      </motion.div>
     </Box>
   );
 }

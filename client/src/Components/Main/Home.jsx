@@ -8,9 +8,9 @@ import reactGa from 'react-ga'
 import { useEffect } from "react";
 
 const Home = () => {
-  useEffect(() => {
-    reactGa.pageview(window.location.pathname)
-  }, [])
+  // useEffect(() => {
+  //   reactGa.pageview(window.location.pathname)
+  // }, [])
 
   return (
     <>

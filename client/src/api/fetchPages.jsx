@@ -16,6 +16,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
+import { motion } from "framer-motion";
 
 const FetchPages = () => {
   const principalColor = "#B18C50";
@@ -113,11 +114,9 @@ const FetchPages = () => {
                   <ListItemText
                     className="pagesinsm fs-4 fw-bold"
                     primary={cate.attributes.categoryTitle}
-                    sx= {
-                      {
-                        fontFamily: 'Noto Kufi Arabic, sans-serif',
-                      }
-                    }
+                    sx={{
+                      fontFamily: "Noto Kufi Arabic, sans-serif",
+                    }}
                   />
                 </ListItemButton>
               </ListItem>
@@ -130,29 +129,62 @@ const FetchPages = () => {
 
   const inlg = () => {
     let className = "";
+    const variants = {
+      visible: {
+        opacity: 1,
+        x: 30,
+        y:5,
+      },
+      transition: {duration: 1},
+      hidden: {
+        opacity: 0,
+        x: -100,
+      },
+    };
 
-    return data.map((page, index) => {
-      if (page.attributes.root === "/" + window.location.href.split("/")[3])
-        className = "fs-6 text-dark category-link active";
-      else className = "fs-6 text-dark category-link";
+    return (
+      <Box
+        sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}}
 
-      return (
-        <Link
-          key={index}
-          href={`${page.attributes.root}`}
-          sx={{
-            mr: 3,
-            color: { principalColor },
-            display: "block",
-            fontFamily: 'Noto Kufi Arabic, sans-serif'
+      >
+        <motion.ul
+          initial="hidden"
+          animate="visible"
+          variants={variants}
+          style={{
+            display: 'flex'
           }}
-          underline="none"
-          className={className}
         >
-          {page.attributes.categoryTitle}
-        </Link>
-      );
-    });
+          {data.map((page, index) => {
+            if (page.attributes.root === "/" + window.location.href.split("/")[3])
+              className = "fs-6 text-dark category-link active";
+            else className = "fs-6 text-dark category-link";
+        
+            return (
+              <motion.li
+                variants={variants}
+                key={index}
+              >
+                <Link
+                  href={`${page.attributes.root}`}
+                  sx={{
+                    mr: 3,
+                    color: { principalColor },
+                    display: "block",
+                    fontFamily: "Noto Kufi Arabic, sans-serif",
+                  }}
+                  underline="none"
+                  className={className}
+                  variants={variants}
+                >
+                  {page.attributes.categoryTitle}
+                </Link>
+              </motion.li>
+            );
+          })}
+        </motion.ul>
+      </Box>
+    );
   };
 
   return (
@@ -204,9 +236,7 @@ const FetchPages = () => {
           ))}
         </Grid>
       ) : (
-        <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-          {inlg()}
-        </Box>
+        inlg()
       )}
     </>
   );

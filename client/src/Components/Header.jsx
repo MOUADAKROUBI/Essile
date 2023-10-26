@@ -193,7 +193,7 @@ const Header = () => {
         position="static"
         className={
           isHeaderSticky
-            ? "sticky-header rounded bg-white header-2"
+            ? "rounded bg-white header-2 sticky-header"
             : "rounded bg-white header-2"
         }
       >

@@ -5,6 +5,7 @@ import axios from "axios";
 import { Box, IconButton, Tooltip, Typography } from "@mui/material";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import { enqueueSnackbar } from 'notistack';
+import { motion } from "framer-motion";
 
 const FetchProducts = ({ data, loading }) => {
 
@@ -45,10 +46,19 @@ const FetchProducts = ({ data, loading }) => {
           <img src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_products.gif?alt=media&token=a4f48c3f-47c3-4b2b-9af4-448985881b7d" alt="" />
         ) : data.length ? (
           data.map((product, index) =>
+          <motion.article
+            key={index}
+            initial={
+              {opacity: 0, y:80}
+            }
+            transition={{duration: 0.5}}
+            whileInView= {
+              {opacity: 1, y:0}
+            }
+            className="product"
+          >
             <Box
-              key={index}
-              component="article"
-              className="product rounded p-1"
+              className="rounded p-1"
               sx={{
                 transition: ".3s all linear",
                 boxShadow:
@@ -108,14 +118,25 @@ const FetchProducts = ({ data, loading }) => {
                 </div>
               </Box>
             </Box>
+          </motion.article>
           )
         ) : (
-          <Typography
-            variant="h3"
-            className="text-muted fw-bold text-decoration-none mb-4 text-center "
+          <motion.div 
+            initial={
+              {opacity: 0, y:80}
+            }
+            transition={{delay: 0.3}}
+            whileInView= {
+              {opacity: 1, y:0}
+            }
           >
-            لا توجد منتوجات بعد
-          </Typography>
+            <Typography
+              variant="h3"
+              className="text-muted fw-bold text-decoration-none mb-4 text-center "
+            >
+              لا توجد منتوجات بعد
+            </Typography>
+          </motion.div>
         )}
       </Box>
     </>

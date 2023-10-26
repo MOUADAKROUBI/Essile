@@ -9,6 +9,7 @@ import CopyrightIcon from "@mui/icons-material/Copyright";
 import { FaTiktok } from "react-icons/fa";
 import "../css/footer.css";
 import ReactWhatsapp from "react-whatsapp";
+import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
@@ -21,6 +22,15 @@ const Footer = () => {
           justifyContent: "center",
           gap: 3,
         }}
+      >
+        <motion.div 
+        initial={
+          {opacity: 0, x:45}
+        }
+        transition={{duration: 1}}
+        whileInView= {
+          {opacity: 1, x:0}
+        }
       >
         <div className=" google-maps text-center">
           <Typography
@@ -43,6 +53,16 @@ const Footer = () => {
             }}
           ></Box>
         </div>
+      </motion.div>
+      <motion.div 
+        initial={
+          {opacity: 0, y:80}
+        }
+        transition={{duration: 1}}
+        whileInView= {
+          {opacity: 1, y:0}
+        }
+      >
         <div className="col">
           <Typography
             variant="h4"
@@ -71,6 +91,16 @@ const Footer = () => {
             </Typography>
           </div>
         </div>
+      </motion.div>
+      <motion.div 
+        initial={
+          {opacity: 0, x:-45}
+        }
+        transition={{duration: 1}}
+        whileInView= {
+          {opacity: 1, x:0}
+        }
+      >
         <div className="">
           <div>
             <Typography
@@ -145,6 +175,7 @@ const Footer = () => {
             متجر اسيل - هدايا فريدة لكل مناسبة. اختر مشاعرك معنا.
           </Typography>
         </div>
+      </motion.div>
       </Box>
       <hr className="text-white" />
       <div className="text-center text-white">

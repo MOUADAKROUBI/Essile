@@ -1,11 +1,21 @@
 import { Typography } from "@mui/material";
 import {} from "react";
+import { motion } from 'framer-motion'
 
 const Hero = () => {
   return (
     <section className="hero my-5">
       <div className="row">
-        <div className="col">
+        <motion.div 
+          className="col"
+          initial={
+            {opacity: 0, x:45}
+          }
+          transition={{duration: 1.5}}
+          whileInView= {
+            {opacity: 1, x:0}
+          }
+        >
           <Typography
             variant="h1"
             className="text-center tw-bold hero-title mb-2"
@@ -29,8 +39,17 @@ const Hero = () => {
             واثقًا من أن هديتك ستكون لحظة خاصة وذكرى لا تُنسى في كل مناسبة تحتفل
             بها. تسوق معنا اليوم واجعل هداياك لا تُنسى!
           </Typography>
-        </div>
-        <div className="col d-flex justify-content-center">
+        </motion.div>
+        <motion.div 
+          className="col d-flex justify-content-center"
+          initial={
+            {opacity: 0, y:-80}
+          }
+          transition={{duration: 0.5}}
+          whileInView= {
+            {opacity: 1, y:0}
+          }
+        >
           <iframe
             className="video-introduction rounded "
             src="https://www.youtube.com/embed/h4s0llOpKrU?si=65yc7ZXdoqMqu3O4"
@@ -38,7 +57,7 @@ const Hero = () => {
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowFullScreen
           ></iframe>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

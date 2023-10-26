@@ -4,8 +4,7 @@ import App from './App';
 import { Loading } from './Loading'; 
 import reactGa from 'react-ga4'
 
-const tracking_id = 'G-33WXLKYDKD'
-reactGa.initialize(tracking_id)
+reactGa.initialize(import.meta.env.VITE_TRAKING_ID)
 
 // Send pageview with a custom path
 reactGa.send({ hitType: "pageview", page: window.location.pathname, title: document.title });

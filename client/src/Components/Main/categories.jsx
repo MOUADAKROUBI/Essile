@@ -37,9 +37,9 @@ const Categories = ({ category }) => {
     fetchData();
   }, [category]);
 
-  useEffect(() => {
-    reactGa.pageview(window.location.pathname)
-  }, [])
+  // useEffect(() => {
+  //   reactGa.pageview(window.location.pathname)
+  // }, [])
 
   async function handleFilterByName(e) {
     setFilterByName(e.target.value)
