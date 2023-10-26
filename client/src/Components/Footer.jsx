@@ -94,7 +94,7 @@ const Footer = () => {
       </motion.div>
       <motion.div 
         initial={
-          {opacity: 0, x:-45}
+          {opacity: 0, x:-35}
         }
         transition={{duration: 1}}
         whileInView= {

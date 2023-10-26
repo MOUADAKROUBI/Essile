@@ -134,8 +134,8 @@ const FetchPages = () => {
         opacity: 1,
         x: 30,
         y:5,
+        transition: {staggerChildren: 0.4},
       },
-      transition: {duration: 1},
       hidden: {
         opacity: 0,
         x: -100,
@@ -152,7 +152,7 @@ const FetchPages = () => {
           animate="visible"
           variants={variants}
           style={{
-            display: 'flex'
+            display: 'flex',
           }}
         >
           {data.map((page, index) => {
@@ -164,6 +164,9 @@ const FetchPages = () => {
               <motion.li
                 variants={variants}
                 key={index}
+                style={{
+                  margin: '0px 5px',
+                }}
               >
                 <Link
                   href={`${page.attributes.root}`}
@@ -175,7 +178,7 @@ const FetchPages = () => {
                   }}
                   underline="none"
                   className={className}
-                  variants={variants}
+                  
                 >
                   {page.attributes.categoryTitle}
                 </Link>
