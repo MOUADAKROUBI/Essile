@@ -31,9 +31,10 @@ const SingleProduct = ({ category }) => {
           }
         );
         setData(response.data.data);
+        console.log(response.data.data)
         setLoading(false);
       } catch (error) {
-        throw error;
+        console.log(error)
       }
     }
 
@@ -78,7 +79,7 @@ const SingleProduct = ({ category }) => {
     <>
       <Helmet>
         <title>
-          {loading ? "...المرجو الانتظار" : data.attributes.productTitile }
+          {loading && !data.length ? "...المرجو الانتظار" : data.attributes.productTitile }
         </title>
         <meta
           name="description"

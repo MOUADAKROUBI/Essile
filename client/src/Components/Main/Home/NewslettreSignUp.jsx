@@ -32,8 +32,9 @@ const NewslettreSignUp = () => {
       });
   }
 
-  let backgrounColor = window.localStorage.getItem('mode') === 'dark'? '#fff':'#000';
-  let color = window.localStorage.getItem('mode') === 'dark'? '#000':'#fff';
+  // let backgrounColor = window.localStorage.getItem('mode') === 'light'? '#fff':'#000';
+  let backgroundColor = window.localStorage.getItem('mode') === 'dark' && '#fff';
+  let color = window.localStorage.getItem('mode') === 'dark' && '#000';
 
   return (
     <section className="my-5">
@@ -103,7 +104,7 @@ const NewslettreSignUp = () => {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   sx={{
-                    backgroundColor: backgrounColor,
+                    backgroundColor: backgroundColor,
                     color: color,
                   }}
                 />

@@ -117,8 +117,8 @@ const Cart = () => {
       });
       
   }
-  let backgrounColor = window.localStorage.getItem('mode') === 'dark'? '#fff':'#000';
-  let color = window.localStorage.getItem('mode') === 'dark'? '#000':'#fff';
+  let backgroundColor = window.localStorage.getItem('mode') === 'dark' && '#fff';
+  let color = window.localStorage.getItem('mode') === 'dark' && '#000';
 
   return (
     <>
@@ -171,7 +171,7 @@ const Cart = () => {
                       value={NameComplete}
                       onChange={(e) => setNameComplete(e.target.value)}
                       style={{
-                        backgroundColor: backgrounColor,
+                        backgroundColor: backgroundColor,
                         color: color
                       }}
                     />
@@ -186,7 +186,7 @@ const Cart = () => {
                       value={Telephone}
                       onChange={(e) => setTelephone(e.target.value)}
                       style={{
-                        backgroundColor: backgrounColor,
+                        backgroundColor: backgroundColor,
                         color: color
                       }}
                     />
@@ -209,7 +209,7 @@ const Cart = () => {
                       label="المدينة"
                       className="w-100 rounded"
                       style={{
-                        backgroundColor: backgrounColor,
+                        backgroundColor: backgroundColor,
                         // color: color
                       }}
                     >
@@ -230,7 +230,7 @@ const Cart = () => {
                       value={Address}
                       onChange={(e) => setAddress(e.target.value)}
                       style={{
-                        backgroundColor: backgrounColor,
+                        backgroundColor: backgroundColor,
                         color: color
                       }}
                     />
@@ -407,7 +407,7 @@ const Cart = () => {
         ) : (
           <Typography
             variant="h3"
-            className="fw-bold"
+            className="fw-bold typography"
             sx={{
               fontSize: { md: "2.5rem", sm: "2rem", xs: "1.5rem" },
             }}
