@@ -10,7 +10,7 @@ import { motion } from "framer-motion";
 const FetchProducts = ({ data, loading }) => {
 
   async function handleAddToCart(id, variant) {
-    const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}?populate=prductImage`, {
+    const response = await axios.get(`${import.meta.env.VITE_API_URL}/products/${id}?populate=*`, {
       headers: {
         Accept: "*/*",
         Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
@@ -76,7 +76,9 @@ const FetchProducts = ({ data, loading }) => {
                     height: { md: 300, xs: 350 },
                   }}
                 >
-                  <a href={"/product/" + product.id}>
+                  <a 
+                    href={`${product.attributes.category.data.attributes.root}/${product.id}`}
+                  >
                     <img
                       className="rounded"
                       src={
@@ -96,7 +98,7 @@ const FetchProducts = ({ data, loading }) => {
                 <Typography
                   variant="h5"
                   component="a"
-                  href={"/product/" + product.id}
+                  href={`${product.attributes.category.data.attributes.root}/${product.id}`}
                   mb={1}
                   className="product-title fw-bold text-dark my-2"
                 >
@@ -106,8 +108,9 @@ const FetchProducts = ({ data, loading }) => {
                   <div className="col product-price d-flex fw-bold fs-4 align-items-center text-end">
                     {product.attributes.productPrice} درهم
                   </div>
-                  <div className="col d-flex justify-content-end add-to cart">
+                  <div className="col d-flex justify-content-end cart-btn">
                     <IconButton 
+                      className="cart-btn"
                       onClick={() => handleAddToCart(product.id, 'success')}
                     >
                       <Tooltip title="أضف هذا المنتوج إلى سلة منتجاتك" arrow>

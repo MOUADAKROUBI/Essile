@@ -1,7 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Dancing+Script&family=Fuzzy+Bubbles&family=Itim&family=Kaushan+Script&family=Montserrat:wght@100&family=My+Soul&family=Noto+Kufi+Arabic:wght@500;900&family=Oswald:wght@500&family=Plus+Jakarta+Sans:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto+Flex:opsz@8..144&family=Roboto+Mono:ital,wght@1,600&family=Roboto:ital,wght@0,400;0,700;1,100&family=Schibsted+Grotesk&display=swap');
 
 :root {
+  --body-bg: #ffff;
+  --black-color: #000;
+  --white-color: #fff;
   --principal-color: #B18C50;
+  --footer-bg: #000;
+}
+
+.dark-mode {
+  --body-bg: #000;
+  --black-color: #fff;
+  --white-color: #000;
+  --footer-bg: #fff;
 }
 
 .social-icons {
@@ -35,7 +46,7 @@ a {
   height: 4px;
   background-color: var(--principal-color);
   position: absolute;
-  bottom: 0px;
+  bottom: -3px;
   left: 0;
   right: 0;
   margin: auto;

@@ -1,0 +1,54 @@
+:root {
+  --body-bg: #ffff;
+  --dark-color: #000;
+  --light-color: #fff;
+  --principal-color: #B18C50;
+  --footer-bg: #000;
+  --light-shadow1: rgba(0, 0, 0, 0.16);
+  --light-shadow2: rgba(0, 0, 0, 0.23);
+  --light-shadow2-hover: rgba(0, 0, 0, 0.35);
+  --light-shadow-cart: rgba(100, 100, 111, 0.2);
+  --shadow-boot: rgba(0,0,0,.15);
+}
+
+.dark-mode {
+  --body-bg: #000;
+  --dark-color: #fff;
+  --light-color: #000;
+  --footer-bg: #fff;
+  --light-shadow1: rgba(255, 255, 255, 0.16);
+  --light-shadow2: rgba(255, 255, 255, 0.23);
+  --light-shadow2-hover: rgba(255, 255, 255, 0.35);
+  --light-shadow-cart: rgba(255, 255, 255, 0.2);
+  --shadow-boot: rgba(255,255,255,.15);
+}
+
+.product {
+  transition: .3s all linear;
+  box-shadow: var(--light-shadow1) 0px 3px 6px, var(--light-shadow2) 0px 3px 6px;
+}
+
+.product:hover {
+  box-shadow: var(--light-shadow2-hover) 0px 5px 15px;
+}
+
+body, .header-2, .menu-side {
+  background-color: var(--body-bg) !important;
+}
+
+.category-link, .header-1-info, .hero-title,.menu-btn, .product-title, .cart-btn, .typography {
+  color: var(--dark-color) !important;
+}
+
+.input-champ {
+  background-color: var(--light-color);
+  color: var(--dark-color);
+}
+
+.single-product {
+  box-shadow: var(--light-shadow-cart) 0px 7px 29px 0px;
+}
+
+.shadow-boot {
+  box-shadow: var(--shadow-boot) 0 .5rem 1rem !important;
+}

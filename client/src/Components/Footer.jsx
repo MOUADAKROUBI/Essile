@@ -2,18 +2,14 @@ import { Box, Typography } from "@mui/material";
 import MapIcon from "@mui/icons-material/Map";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import EmailIcon from "@mui/icons-material/Email";
-import WhatsAppIcon from "@mui/icons-material/WhatsApp";
-import FacebookIcon from "@mui/icons-material/Facebook";
-import InstagramIcon from "@mui/icons-material/Instagram";
 import CopyrightIcon from "@mui/icons-material/Copyright";
-import { FaTiktok } from "react-icons/fa";
 import "../css/footer.css";
 import ReactWhatsapp from "react-whatsapp";
 import { motion } from "framer-motion";
 
 const Footer = () => {
   return (
-    <footer className="shadow-lg justify-centent-center">
+    <footer className="shadow-lg justify-centent-center border">
       <Box
         className=" text-white"
         sx={{

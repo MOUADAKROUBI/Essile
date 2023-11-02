@@ -76,19 +76,11 @@ const MostSallers = () => {
           gap: 5,
         }}
       >
-        {(loading ? Array.from(new Array(3)) : products).map(
+        {(loading ? Array.from(new Array(3)) : products).slice(0, 3).map(
           (product, index) => (
             <motion.article
               key={index}
               className="product rounded p-2"
-              style={{
-                transition: ".3s all linear",
-                boxShadow:
-                  "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
-                "&:hover": {
-                  boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-                },
-              }}
               initial={
                 {opacity: 0, y:-50}
               }
@@ -142,9 +134,10 @@ const MostSallers = () => {
                     <div className="col product-price d-flex fw-bold fs-4 align-items-center text-end">
                       {product.attributes.productPrice} درهم
                     </div>
-                    <div className="col d-flex justify-content-end add-to cart">
+                    <div className="col d-flex justify-content-end add-to ">
                       <IconButton
                         onClick={() => handleAddToCart(product.id, "success")}
+                        className="cart-btn"
                       >
                         <Tooltip title="أضف هذا المنتوج إلى سلة منتجاتك" arrow>
                           <AddShoppingCartIcon className="fs-3" />

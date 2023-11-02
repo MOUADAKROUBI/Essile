@@ -153,26 +153,25 @@ const FetchPages = () => {
           variants={variants}
           style={{
             display: 'flex',
+            listStyleType: 'none'
           }}
         >
           {data.map((page, index) => {
             if (page.attributes.root === "/" + window.location.href.split("/")[3])
-              className = "fs-6 text-dark category-link active";
-            else className = "fs-6 text-dark category-link";
+              className = "fs-6 category-link w-100 text-center active";
+            else className = "fs-6 category-link w-100 text-center";
         
             return (
               <motion.li
                 variants={variants}
                 key={index}
-                style={{
-                  margin: '0px 5px',
-                }}
+                className="w-100"
               >
                 <Link
                   href={`${page.attributes.root}`}
                   sx={{
                     mr: 3,
-                    color: { principalColor },
+                    // color: { principalColor },
                     display: "block",
                     fontFamily: "Noto Kufi Arabic, sans-serif",
                   }}
@@ -200,6 +199,7 @@ const FetchPages = () => {
           aria-haspopup="true"
           onClick={toggleDrawer(true)}
           color={principalColor}
+          className="menu-btn"
         >
           <MenuIcon />
         </IconButton>
@@ -235,7 +235,7 @@ const FetchPages = () => {
           sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
         >
           {Array.from(new Array(6)).map((i, a) => (
-            <Skeleton key={a} variant="rounded" width={100} height={30} />
+            <Skeleton key={a} variant="rounded" width={100} height={30} className="loadings" />
           ))}
         </Grid>
       ) : (

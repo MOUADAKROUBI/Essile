@@ -4,7 +4,7 @@
 }
 
 .brand-name {
-  color: var(--principal-color);
+  color: var(--principal-color) !important;
 }
 
 .video-introduction {

@@ -9,7 +9,7 @@ import {
   Tooltip,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import cities from "../../api/cities";
 import AddIcon from "@mui/icons-material/Add";
@@ -19,12 +19,8 @@ import { enqueueSnackbar } from "notistack";
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
 import { Helmet } from "react-helmet";
-import reactGa from 'react-ga';
 
 const Cart = () => {
-  // useEffect(() => {
-  //   reactGa.pageview(window.location.pathname)
-  // }, [])
 
   if (!localStorage.getItem("cart"))
     localStorage.setItem("cart", JSON.stringify([]));
@@ -43,7 +39,7 @@ const Cart = () => {
   const [city, setCity] = useState("");
   const [Address, setAddress] = useState("");
   const [counters, setCounters] = useState(cartProduct.map(() => 1));
-  const [commandDate, setCommandDate] = useState(`${day}/${month}/${year}`)
+  const [commandDate, setCommandDate] = useState(`${day}/${month}/${year}`);
 
   let sum = 0;
   let newarray = cartProduct.map(
@@ -121,6 +117,8 @@ const Cart = () => {
       });
       
   }
+  let backgrounColor = window.localStorage.getItem('mode') === 'dark'? '#fff':'#000';
+  let color = window.localStorage.getItem('mode') === 'dark'? '#000':'#fff';
 
   return (
     <>
@@ -151,7 +149,7 @@ const Cart = () => {
               }}
             >
               <Box
-                className="command-form rounded shadow p-3 m-auto"
+                className="command-form rounded shadow-boot p-3 m-auto"
                 sx={{
                   height: 400,
                   width: { sm: "100%", xs: "85%" },
@@ -165,32 +163,43 @@ const Cart = () => {
                 >
                   <Box className="name-box mb-3 ">
                     <TextField
+                      required
                       id="name"
                       label="الاسم الكامل"
                       variant="filled"
-                      className="w-100"
+                      className="w-100 rounded"
                       value={NameComplete}
                       onChange={(e) => setNameComplete(e.target.value)}
+                      style={{
+                        backgroundColor: backgrounColor,
+                        color: color
+                      }}
                     />
                   </Box>
                   <Box className="tele-box mb-3">
                     <TextField
+                      required
                       id="telephone"
                       label="رقم الهاتف"
                       variant="filled"
-                      className="w-100"
+                      className="w-100 rounded"
                       value={Telephone}
                       onChange={(e) => setTelephone(e.target.value)}
+                      style={{
+                        backgroundColor: backgrounColor,
+                        color: color
+                      }}
                     />
                   </Box>
                   <Box className="city-box mb-3">
                     <InputLabel
                       id="demo-simple-select-filled-label"
-                      className="fs-4"
+                      className="fs-4 typography"
                     >
                       المدينة
                     </InputLabel>
                     <Select
+                      required
                       labelId="demo-simple-select-filled-label"
                       variant="filled"
                       id="demo-simple-select-filled"
@@ -198,7 +207,11 @@ const Cart = () => {
                       onChange={(e) => setCity(e.target.value)}
                       autoWidth
                       label="المدينة"
-                      className="w-100"
+                      className="w-100 rounded"
+                      style={{
+                        backgroundColor: backgrounColor,
+                        // color: color
+                      }}
                     >
                       {cities.cities.data.map((city) => (
                         <MenuItem key={city.names.en} value={city.names.ar}>
@@ -209,12 +222,17 @@ const Cart = () => {
                   </Box>
                   <Box className="adress mb-3">
                     <TextField
+                      required
                       id="adress"
                       label="العنوان"
                       variant="filled"
-                      className="w-100"
+                      className="w-100 rounded"
                       value={Address}
                       onChange={(e) => setAddress(e.target.value)}
+                      style={{
+                        backgroundColor: backgrounColor,
+                        color: color
+                      }}
                     />
                   </Box>
                   <Box className="sendCommandBtn-box mb-3 text-center">
@@ -244,12 +262,11 @@ const Cart = () => {
                 {cartProduct.map((product, index) => (
                   <Box
                     key={index}
-                    className="single-product mb-3 p-2 rounded border"
+                    className="single-product mb-3 p-2 rounded"
                     sx={{
                       display: "grid",
                       gridTemplateColumns: "1fr 1fr 1fr",
                       gap: 1,
-                      boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
                       width: {sm: 'auto', xs: 390},
                       overflowX: {sm: 'hidden', xs: 'scroll'}
                     }}
@@ -284,7 +301,7 @@ const Cart = () => {
                     <div className="product-title-quantity text-center">
                       <Typography
                         variant="h4"
-                        className="mb-5"
+                        className="mb-5 typography"
                         sx={{
                           fontSize: { sm: "2.125rem", xs: "1.2rem" },
                         }}
@@ -299,22 +316,22 @@ const Cart = () => {
                       >
                         <Typography
                           component="div"
-                          className="quantity-btns-title text-end fw-bold"
+                          className="quantity-btns-title text-end fw-bold typography"
                         >
                           الكمية:
                         </Typography>
                         <Box className="quantity-btns-box d-flex">
                           <Button
                             variant="filled"
-                            className="ms-2 d-flex align-items-center"
+                            className="ms-2 d-flex align-items-center typography"
                             onClick={() => incrementCounter(index)}
                           >
                             <AddIcon className="ms-2" />
                           </Button>
-                          <span className="mt-2 fw-bold">{counters[index]}</span>
+                          <span className="mt-2 fw-bold typography">{counters[index]}</span>
                           <Button
                             variant="filled"
-                            className="ms-2"
+                            className="ms-2 typography"
                             sx={{
                               position: "relative",
                               top: -5,
@@ -341,7 +358,7 @@ const Cart = () => {
                       </Tooltip>
                       <Typography
                         variant="h4"
-                        className="fw-bold"
+                        className="fw-bold typography"
                         sx={{
                           fontSize: { sm: "2.225rem", xs: "1.2rem" },
                         }}
@@ -358,7 +375,7 @@ const Cart = () => {
                 >
                   <Typography
                     variant="h3"
-                    className="fw-bold"
+                    className="fw-bold typography"
                     sx={{
                       fontSize: { sm: "3rem", xs: "2rem" },
                     }}

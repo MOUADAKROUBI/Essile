@@ -11,7 +11,6 @@ import FetchProducts from "../../api/fetchProducts";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { Helmet } from 'react-helmet';
-import reactGa from 'react-ga'
 
 const Categories = ({ category }) => {
   const [filterByName, setFilterByName] = useState('')
@@ -37,13 +36,12 @@ const Categories = ({ category }) => {
     fetchData();
   }, [category]);
 
-  // useEffect(() => {
-  //   reactGa.pageview(window.location.pathname)
-  // }, [])
+  let backgrounColor = window.localStorage.getItem('mode') === 'dark'? '#fff':'#000';
+  let color = window.localStorage.getItem('mode') === 'dark'? '#000':'#fff';
 
   async function handleFilterByName(e) {
     setFilterByName(e.target.value)
-    await axios.get(import.meta.env.VITE_API_URL+`/products?populate=*&filters[category][categoryTitle][$eq]=${category}&filters[productTitile][$startsWith]=${e.target.value}`, {
+    await axios.get(import.meta.env.VITE_API_URL+`/products?populate=*&filters[category][categoryTitle][$eq]=${category}&filters[productTitile][$contains]=${e.target.value}`, {
       headers: {
         Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
       }
@@ -110,18 +108,22 @@ const Categories = ({ category }) => {
               }
             }
           >
-            <Typography variant="h5">البحث</Typography>
+            <Typography variant="h5" className="typography">البحث</Typography>
             <TextField
               fullWidth
               label={`إبحث عن ${category} التي تناسبك`}
               id="product-search"
               type="search"
               inputProps={{ dir: "rtl" }}
-              className="mb-4"
+              className="mb-4 rounded"
               value={filterByName}
               onChange={handleFilterByName}
+              style={{
+                backgroundColor: backgrounColor,
+                color: color
+              }}
             />
-            <Typography variant="h5">السعر (DH)</Typography>
+            <Typography variant="h5" className="typography">السعر (DH)</Typography>
             <Slider
               aria-label="price"
               defaultValue={350}

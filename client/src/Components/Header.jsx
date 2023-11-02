@@ -19,6 +19,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import ReactWhatsapp from "react-whatsapp";
 import FetchPages from "../api/fetchPages";
 import { useEffect, useState } from "react";
+import LightModeIcon from '@mui/icons-material/LightMode';
+import DarkModeIcon from '@mui/icons-material/DarkMode';
 
 const Header = () => {
   if (localStorage.getItem("cart") === null)
@@ -37,24 +39,51 @@ const Header = () => {
   const [isHeaderSticky, setIsHeaderSticky] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      // Check if the user has scrolled beyond a certain point (e.g., 100 pixels from the top)
-      const scrollY = window.scrollY;
-      if (scrollY > 100) {
-        setIsHeaderSticky(true);
-      } else {
-        setIsHeaderSticky(false);
+    const body = document.body;
+    let lastScroll = 0;
+
+    window.addEventListener("scroll", () => {
+      const currentScroll = window.scrollY;
+      if (currentScroll <= 100) {
+        body.classList.remove("scroll-up");
+        setIsHeaderSticky(false)
+        return;
       }
-    };
 
-    // Attach the scroll event listener
-    window.addEventListener("scroll", handleScroll);
+      if (currentScroll > lastScroll && !body.classList.contains("scroll-down")) {
+        body.classList.remove("scroll-up");
+        body.classList.add("scroll-down");
+      } else if (
+        currentScroll < lastScroll &&
+        body.classList.contains("scroll-down")
+      ) {
+        body.classList.remove("scroll-down");
+        body.classList.add("scroll-up");
+      }
+      lastScroll = currentScroll;
 
-    // Clean up the event listener when the component unmounts
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+      body.classList.contains("scroll-up") ? setIsHeaderSticky(true):setIsHeaderSticky(false);
+    });
+
   }, []);
+
+  const [currentThem, setCurrentThem] = useState(window.localStorage.getItem('mode') === 'light'?true:false);
+  if (window.localStorage.getItem('mode') === 'dark')
+    document.documentElement.classList.add('dark-mode')
+  else
+    document.documentElement.classList.remove('dark-mode')
+
+  function handleLightDarkMode() {
+    if (currentThem) {
+      document.documentElement.classList.add('dark-mode')
+      setCurrentThem(!currentThem)
+      window.localStorage.setItem('mode', 'dark')
+    } else {
+      document.documentElement.classList.remove('dark-mode')
+      setCurrentThem(!currentThem)
+      window.localStorage.setItem('mode', 'light')
+    }
+  }
 
   return (
     <>
@@ -80,8 +109,8 @@ const Header = () => {
         <div className="col d-flex justify-content-start align-items-center btn-langs">
           <Button
             variant="text"
-            id="demo-positioned-button"
-            aria-controls={open ? "demo-positioned-menu" : undefined}
+            id="lng-btn"
+            aria-controls={open ? "lng-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
@@ -92,8 +121,8 @@ const Header = () => {
             عربية
           </Button>
           <Menu
-            id="demo-positioned-menu"
-            aria-labelledby="demo-positioned-button"
+            id="lng-menu"
+            aria-labelledby="lng-btn"
             anchorEl={anchorEl}
             open={open}
             onClose={handleClose}
@@ -109,6 +138,20 @@ const Header = () => {
             <MenuItem onClick={handleClose}>Français</MenuItem>
             <MenuItem onClick={handleClose}>Englais</MenuItem>
           </Menu>
+          {/* mode light || mode dark */}
+          <IconButton
+            className=" text-center"
+            sx= {
+              {
+                color: '#B18C50'
+              }
+            }
+            onClick={() => handleLightDarkMode()}
+          >
+            {
+              currentThem ? <DarkModeIcon className="fs-2"/>:<LightModeIcon className="fs-2 "/>
+            }
+          </IconButton>
         </div>
         <div className="col pt-2 d-flex align-items-center justify-content-center infos-contact">
           <Typography
@@ -118,7 +161,7 @@ const Header = () => {
             className="d-flex ms-3"
           >
             <CallIcon style={{ marginRight: 5 }} />{" "}
-            <span className="text-dark me-2">0694940024</span>
+            <span className="header-1-info me-2">0694940024</span>
           </Typography>
           <Typography
             variant="h6"
@@ -127,7 +170,7 @@ const Header = () => {
             className="d-flex"
           >
             <EmailIcon style={{ marginRight: 5 }} />{" "}
-            <span className="text-dark me-2">Bnalimohamed54@gmail.com</span>
+            <span className="header-1-info me-2">Bnalimohamed54@gmail.com</span>
           </Typography>
         </div>
         <div className="col social-icons">

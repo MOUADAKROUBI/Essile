@@ -36,7 +36,7 @@ const OffersAndCompetitions = () => {
             variant='h3'
             component='li'
             mb={2}
-            className='fw-bold'
+            className='fw-bold typography'
             sx={
               {
                 fontSize: {
@@ -69,7 +69,7 @@ const OffersAndCompetitions = () => {
             variant='h3'
             component='li'
             mb={2}
-            className='fw-bold'
+            className='fw-bold typography'
             sx={
               {
                 fontSize: {

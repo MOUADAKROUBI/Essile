@@ -32,6 +32,9 @@ const NewslettreSignUp = () => {
       });
   }
 
+  let backgrounColor = window.localStorage.getItem('mode') === 'dark'? '#fff':'#000';
+  let color = window.localStorage.getItem('mode') === 'dark'? '#000':'#fff';
+
   return (
     <section className="my-5">
       <motion.div 
@@ -43,7 +46,7 @@ const NewslettreSignUp = () => {
           {opacity: 1, x:0}
         }
       >
-        <div className="form mt-3 shadow rounded py-5 px-2 text-center">
+        <div className="form mt-3 shadow-boot rounded py-5 px-2 text-center">
           <Typography
             variant="h2"
             mb={2}
@@ -77,9 +80,18 @@ const NewslettreSignUp = () => {
               className="input-btnSubmit"
               sx={{
                 display: { sm: "flex", xs: "block" },
+                justifyContent: 'center',
+                alignContent: 'center'
               }}
             >
-              <div className="input-div w-100 ps-3">
+              <Box
+                className="input-div ps-3"
+                sx= {
+                  {
+                    width: { sm: '75%', xs: '100%' }
+                  }
+                }
+              >
                 <TextField
                   required
                   id="filled-required"
@@ -87,11 +99,15 @@ const NewslettreSignUp = () => {
                   variant="filled"
                   type="email"
                   inputProps={{ dir: "ltr" }}
-                  className="w-100"
+                  className="rounded w-100"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
+                  sx={{
+                    backgroundColor: backgrounColor,
+                    color: color,
+                  }}
                 />
-              </div>
+              </Box>
               <div className="btnSubmit-btn">
                 <Button
                   variant="contained"
@@ -102,7 +118,7 @@ const NewslettreSignUp = () => {
                     marginTop: { xs: 2, sm: 0 },
                   }}
                 >
-                  أرسل
+                  إنضم إلينا
                 </Button>
               </div>
             </Box>
