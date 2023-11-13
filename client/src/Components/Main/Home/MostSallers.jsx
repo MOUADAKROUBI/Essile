@@ -34,7 +34,7 @@ const MostSallers = () => {
 
   async function handleAddToCart(id, variant) {
     const product = await axios.get(
-      `${import.meta.env.VITE_API_URL}/products/${id}?populate=prductImage`,
+      `${import.meta.env.VITE_API_URL}/products/${id}?populate=*`,
       {
         headers: {
           Accept: "*/*",
@@ -94,40 +94,69 @@ const MostSallers = () => {
                   <Box
                     key={index}
                     className="product-img d-flex justify-content-center"
-                    sx={{
-                      height: { md: 300, xs: 350 },
-                    }}
                   >
-                    <a href={"/product/" + product.id}>
-                      <img
-                        className="rounded"
-                        src={img.attributes.formats.medium.url}
-                        alt={product.attributes.productTitile}
-                        style={{
-                          width: "100%",
-                          height: "100%",
-                          objectFit: "cover",
-                        }}
-                      />
+                    <a href={`${product.attributes.category.data.attributes.root}/${product.id}`}>
+                    <div
+                      id={`image-${index}`}
+                      className="carousel slide carousel-fade"
+                    >
+                      <div className="carousel-inner">
+                        {product.attributes.prductImage.data.map( (img, index) => (
+                            <div className="carousel-item active" key={index}>
+                              <img
+                                className="rounded d-block w-100"
+                                src={img.attributes.formats.medium.url}
+                                alt={product.attributes.productTitile}
+                                style={{
+                                  objectFit: "cover",
+                                }}
+                              />
+                            </div>
+                          )
+                        )}
+                      </div>
+                      {
+                        product.attributes.prductImage.data.length != 1 && (
+                        <>
+                          <button className="carousel-control-prev" type="button" data-bs-target={`#image-${index}`} data-bs-slide="prev">
+                            <span className="carousel-control-prev-icon bg-dark p-3 rounded-circle" aria-hidden="true"></span>
+                            <span className="visually-hidden">Previous</span>
+                          </button>
+                          <button className="carousel-control-next" type="button" data-bs-target={`#image-${index}`} data-bs-slide="next">
+                            <span className="carousel-control-next-icon bg-dark p-3 rounded-circle" aria-hidden="true"></span>
+                            <span className="visually-hidden">Next</span>
+                          </button>
+                        </>
+                        )
+                      }
+                    </div>
                     </a>
                   </Box>
                 ))
               ) : (
-                <Skeleton variant="rectangular" height={218} />
+                <Skeleton variant="rectangular" height={218} 
+                  style={{
+                    backgroundColor: document.documentElement.classList.contains('dark-mode') && '#eee',
+                  }}
+                />
               )}
               <Box className="product-info text-center mt-2">
                 {product ? (
                   <Typography
                     variant="h5"
                     component="a"
-                    href={"/product/" + product.id}
+                    href={`${product.attributes.category.data.attributes.root}/${product.id}`}
                     mb={1}
                     className="product-title fw-bold text-dark my-2"
                   >
                     {product.attributes.productTitile}
                   </Typography>
                 ) : (
-                  <Skeleton />
+                  <Skeleton 
+                    style={{
+                      backgroundColor: document.documentElement.classList.contains('dark-mode') && '#eee',
+                    }}
+                  />
                 )}
                 {product ? (
                   <div className="row">
@@ -146,7 +175,11 @@ const MostSallers = () => {
                     </div>
                   </div>
                 ) : (
-                  <Skeleton width="60%" />
+                  <Skeleton width="60%"
+                    style={{
+                      backgroundColor: document.documentElement.classList.contains('dark-mode') && '#eee',
+                    }}
+                  />
                 )}
               </Box>
             </motion.article>

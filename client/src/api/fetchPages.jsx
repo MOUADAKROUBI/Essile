@@ -46,6 +46,7 @@ const FetchPages = () => {
 
     fetchData();
   }, []);
+
   const [openNav, setOpenNav] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -142,6 +143,7 @@ const FetchPages = () => {
       },
     };
 
+    
     return (
       <Box
         sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}}
@@ -171,7 +173,6 @@ const FetchPages = () => {
                   href={`${page.attributes.root}`}
                   sx={{
                     mr: 3,
-                    // color: { principalColor },
                     display: "block",
                     fontFamily: "Noto Kufi Arabic, sans-serif",
                   }}
@@ -223,7 +224,7 @@ const FetchPages = () => {
         <img
           style={{ objectFit: "cover", width: "120px", height: "100px" }}
           src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_logo.svg?alt=media&token=cb5f4bc1-110d-4174-b5ee-7a097109d215"
-          alt=""
+          alt="logo image"
         />
       </Typography>
       {/* navList */}
@@ -233,9 +234,14 @@ const FetchPages = () => {
           wrap="wrap"
           gap={2}
           sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}
+          className="ms-4"
         >
           {Array.from(new Array(6)).map((i, a) => (
-            <Skeleton key={a} variant="rounded" width={100} height={30} className="loadings" />
+            <Skeleton key={a} variant="rounded" width={100} height={30} className="loadings" 
+              style={{
+                backgroundColor: document.documentElement.classList.contains('dark-mode') && '#eee',
+              }}
+            />
           ))}
         </Grid>
       ) : (

@@ -41,38 +41,43 @@ const Categories = ({ category }) => {
 
   async function handleFilterByName(e) {
     setFilterByName(e.target.value)
-    await axios.get(import.meta.env.VITE_API_URL+`/products?populate=*&filters[category][categoryTitle][$eq]=${category}&filters[productTitile][$contains]=${e.target.value}`, {
-      headers: {
-        Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-      }
-    })
-    .then((res) => {
-      if (res.status === 200) {
-        setData(res.data.data)
-      }
-    })
-    .catch((err) => {
-      throw err;
-    })
+    // await axios.get(import.meta.env.VITE_API_URL+`/products?populate=*&filters[category][categoryTitle][$eq]=${category}&filters[productTitile][$contains]=${e.target.value}`, {
+    //   headers: {
+    //     Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+    //   }
+    // })
+    // .then((res) => {
+    //   if (res.status === 200) {
+    //     setData(res.data.data)
+    //   }
+    // })
+    // .catch((err) => {
+    //   throw err;
+    // })
+
+    let dataFiltered = data.filter( product => product.category.categoryTitle === category && product.productTitile.includes(e.target.value))
+    setData(dataFiltered) 
   }
 
   async function handleFilterByPrice(e, val) {
-    // Use 'val' directly instead of 'filterByPrice'
     setFilterByPrice(val);
   
-    try {
-      const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?populate=*&filters[category][categoryTitle][$eq]=${category}&filters[productPrice][$lte]=${val}`, {
-        headers: {
-          Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
-        }
-      });
+    // try {
+    //   const response = await axios.get(`${import.meta.env.VITE_API_URL}/products?populate=*&filters[category][categoryTitle][$eq]=${category}&filters[productPrice][$lte]=${val}`, {
+    //     headers: {
+    //       Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+    //     }
+    //   });
   
-      if (response.status === 200) {
-        setData(response.data.data);
-      }
-    } catch (err) {
-      throw err;
-    }
+    //   if (response.status === 200) {
+    //     setData(response.data.data);
+    //   }
+    // } catch (err) {
+    //   throw err;
+    // }
+
+    let dataFiltered = data.filter( product => product.attributes.category.data.attributes.categoryTitle === category && product.attributes.productPrice <= e.target.value)
+    setData(dataFiltered)
   }  
 
   return (

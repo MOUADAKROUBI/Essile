@@ -19,8 +19,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import ReactWhatsapp from "react-whatsapp";
 import FetchPages from "../api/fetchPages";
 import { useEffect, useState } from "react";
-import LightModeIcon from '@mui/icons-material/LightMode';
-import DarkModeIcon from '@mui/icons-material/DarkMode';
+import LightModeIcon from "@mui/icons-material/LightMode";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
 
 const Header = () => {
   if (localStorage.getItem("cart") === null)
@@ -46,11 +46,14 @@ const Header = () => {
       const currentScroll = window.scrollY;
       if (currentScroll <= 100) {
         body.classList.remove("scroll-up");
-        setIsHeaderSticky(false)
+        setIsHeaderSticky(false);
         return;
       }
 
-      if (currentScroll > lastScroll && !body.classList.contains("scroll-down")) {
+      if (
+        currentScroll > lastScroll &&
+        !body.classList.contains("scroll-down")
+      ) {
         body.classList.remove("scroll-up");
         body.classList.add("scroll-down");
       } else if (
@@ -62,26 +65,28 @@ const Header = () => {
       }
       lastScroll = currentScroll;
 
-      body.classList.contains("scroll-up") ? setIsHeaderSticky(true):setIsHeaderSticky(false);
+      body.classList.contains("scroll-up")
+        ? setIsHeaderSticky(true)
+        : setIsHeaderSticky(false);
     });
-
   }, []);
 
-  const [currentThem, setCurrentThem] = useState(window.localStorage.getItem('mode') === 'light'?true:false);
-  if (window.localStorage.getItem('mode') === 'dark')
-    document.documentElement.classList.add('dark-mode')
-  else
-    document.documentElement.classList.remove('dark-mode')
+  const [currentThem, setCurrentThem] = useState(
+    window.localStorage.getItem("mode") === "light" ? true : false
+  );
+  if (window.localStorage.getItem("mode") === "dark")
+    document.documentElement.classList.add("dark-mode");
+  else document.documentElement.classList.remove("dark-mode");
 
   function handleLightDarkMode() {
     if (currentThem) {
-      document.documentElement.classList.add('dark-mode')
-      setCurrentThem(!currentThem)
-      window.localStorage.setItem('mode', 'dark')
+      document.documentElement.classList.add("dark-mode");
+      setCurrentThem(!currentThem);
+      window.localStorage.setItem("mode", "dark");
     } else {
-      document.documentElement.classList.remove('dark-mode')
-      setCurrentThem(!currentThem)
-      window.localStorage.setItem('mode', 'light')
+      document.documentElement.classList.remove("dark-mode");
+      setCurrentThem(!currentThem);
+      window.localStorage.setItem("mode", "light");
     }
   }
 
@@ -141,16 +146,16 @@ const Header = () => {
           {/* mode light || mode dark */}
           <IconButton
             className=" text-center"
-            sx= {
-              {
-                color: '#B18C50'
-              }
-            }
+            sx={{
+              color: "#B18C50",
+            }}
             onClick={() => handleLightDarkMode()}
           >
-            {
-              currentThem ? <DarkModeIcon className="fs-2"/>:<LightModeIcon className="fs-2 "/>
-            }
+            {currentThem ? (
+              <DarkModeIcon className="fs-2" />
+            ) : (
+              <LightModeIcon className="fs-2 " />
+            )}
           </IconButton>
         </div>
         <div className="col pt-2 d-flex align-items-center justify-content-center infos-contact">
@@ -258,7 +263,11 @@ const Header = () => {
             >
               <Box
                 component="img"
-                src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_logo.svg?alt=media&token=cb5f4bc1-110d-4174-b5ee-7a097109d215"
+                src={
+                  !document.documentElement.classList.contains("dark-mode")
+                    ? "https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_logo.svg?alt=media&token=cb5f4bc1-110d-4174-b5ee-7a097109d215"
+                    : "https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/essile%20logo%20version%20blanc.png?alt=media&token=4ba53cb4-5319-4e5b-bc44-cd3007c32347&_gl=1*10uwliu*_ga*NTYzNTE2MTA4LjE2OTM0NzkzODA.*_ga_CW55HF8NVT*MTY5OTAyMDg3NC4zOC4xLjE2OTkwMjEwMjQuNTIuMC4w"
+                }
                 alt=""
                 sx={{
                   width: "100%",

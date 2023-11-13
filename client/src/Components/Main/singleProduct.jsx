@@ -31,20 +31,22 @@ const SingleProduct = ({ category }) => {
           }
         );
         setData(response.data.data);
-        console.log(response.data.data)
         setLoading(false);
       } catch (error) {
-        console.log(error)
+        throw error;
       }
     }
 
     fetchData();
-  }, [id]);
+  }, [id, loading]);
 
   useEffect(() => {
     async function fetchMoreData() {
       try {
-        const response = await axios.get(import.meta.env.VITE_API_URL + `/products?populate=*&filters[category][categoryTitle][$eq]=${category}`, {
+        const response = await axios.get(
+          import.meta.env.VITE_API_URL +
+            `/products?populate=*&filters[category][categoryTitle][$eq]=${category}`,
+          {
             headers: {
               Accept: "*/*",
               Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
@@ -74,22 +76,24 @@ const SingleProduct = ({ category }) => {
     handleAddToCart("success");
     window.location.href = "/cart";
   }
-  
   return (
     <>
       <Helmet>
         <title>
-          {loading && !data.length ? "...المرجو الانتظار" : data.attributes.productTitile }
+          {!loading && data && data.attributes
+            ? data.attributes.productTitile
+            : "...المرجو الانتظار"}
         </title>
         <meta
           name="description"
           content={
-            !loading
+            !loading && data && data.attributes
               ? data.attributes.productDescreption
               : "إسيل || للهدايا دائما معكم في كل المناسبات"
           }
         />
       </Helmet>
+
       <div className={loading ? "d-flex justify-content-center" : ""}>
         {loading ? (
           <img
@@ -114,25 +118,53 @@ const SingleProduct = ({ category }) => {
                 transition={{ duration: 1 }}
                 whileInView={{ opacity: 1, x: 0 }}
               >
-                <Box
-                  className="product-img"
-                  sx={{
-                    height: { sm: 500, xs: 400 },
-                  }}
-                >
-                  {data.attributes.prductImage.data.map((img, index) => (
-                    <Box
-                      component="img"
-                      key={index}
-                      src={img.attributes.formats.medium.url}
-                      alt={img.attributes.formats.medium.hash}
-                      className="rounded"
-                      sx={{
-                        width: "100%",
-                        height: "100%",
-                      }}
-                    />
-                  ))}
+                <Box className="product-img">
+                  <div
+                    id={`image-${id}`}
+                    className="carousel slide carousel-fade"
+                  >
+                    <div className="carousel-inner">
+                      {data.attributes.prductImage.data.map((img, index) => (
+                        <div className="carousel-item active" key={index}>
+                          <Box
+                            component="img"
+                            key={index}
+                            src={img.attributes.formats.medium.url}
+                            alt={img.attributes.formats.medium.hash}
+                            className="rounded"
+                            sx={{
+                              width: "100%",
+                              height: "100%",
+                            }}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                    <button
+                      className="carousel-control-prev"
+                      type="button"
+                      data-bs-target={`#image-${id}`}
+                      data-bs-slide="prev"
+                    >
+                      <span
+                        className="carousel-control-prev-icon"
+                        aria-hidden="true"
+                      ></span>
+                      <span className="visually-hidden">Previous</span>
+                    </button>
+                    <button
+                      className="carousel-control-next"
+                      type="button"
+                      data-bs-target={`#image-${id}`}
+                      data-bs-slide="next"
+                    >
+                      <span
+                        className="carousel-control-next-icon"
+                        aria-hidden="true"
+                      ></span>
+                      <span className="visually-hidden">Next</span>
+                    </button>
+                  </div>
                 </Box>
               </motion.div>
               <motion.div
@@ -239,7 +271,7 @@ const SingleProduct = ({ category }) => {
                 className="fw-bold m-2"
                 sx={{
                   color: "#B18C50",
-                  fontSize: { xs: '1.5rem', sm: "2rem", md: '2.5rem' }
+                  fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem" },
                 }}
               >
                 المزيد من منتجات {category}
@@ -248,38 +280,43 @@ const SingleProduct = ({ category }) => {
                 className="products my-4"
                 sx={{
                   display: "grid",
-                  gridTemplateColumns: {lg: 'repeat(4, 1fr)', md: 'repeat(3, 1fr)', sm: 'repeat(2, 1fr)', xs: 'repeat(1, 1fr)'}, 
-                  gap: 2
+                  gridTemplateColumns: {
+                    lg: "repeat(4, 1fr)",
+                    md: "repeat(3, 1fr)",
+                    sm: "repeat(2, 1fr)",
+                    xs: "repeat(1, 1fr)",
+                  },
+                  gap: 2,
                 }}
               >
-                {
-                  loading ?
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_products.gif?alt=media&token=a4f48c3f-47c3-4b2b-9af4-448985881b7d"
-                      alt=""
-                      className="mt-5"
-                    />
-                  :
-                    moreProducts.filter(product => product.id != id).map((product) => (
-                    <motion.article
-                      key={product}
-                      initial={{ opacity: 0, y: 80 }}
-                      transition={{ duration: 0.5 }}
-                      whileInView={{ opacity: 1, y: 0 }}
-                      className="product"
-                    >
-                      <Box
-                        className="rounded p-1"
-                        sx={{
-                          transition: ".3s all linear",
-                          boxShadow:
-                            "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
-                          "&:hover": {
-                            boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
-                          },
-                        }}
+                {loading ? (
+                  <img
+                    src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_products.gif?alt=media&token=a4f48c3f-47c3-4b2b-9af4-448985881b7d"
+                    alt=""
+                    className="mt-5"
+                  />
+                ) : (
+                  moreProducts
+                    .filter((product) => product.id != id)
+                    .map((product, index) => (
+                      <motion.article
+                        key={index}
+                        initial={{ opacity: 0, y: 80 }}
+                        transition={{ duration: 0.5 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        className="product"
                       >
-                        {product.attributes.prductImage.data.map((img, index) => (
+                        <Box
+                          className="rounded p-1"
+                          sx={{
+                            transition: ".3s all linear",
+                            boxShadow:
+                              "rgba(0, 0, 0, 0.16) 0px 3px 6px, rgba(0, 0, 0, 0.23) 0px 3px 6px",
+                            "&:hover": {
+                              boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                            },
+                          }}
+                        >
                           <Box
                             key={index}
                             className="product-img d-flex justify-content-center"
@@ -290,54 +327,83 @@ const SingleProduct = ({ category }) => {
                             <a
                               href={`${product.attributes.category.data.attributes.root}/${product.id}`}
                             >
-                              <img
-                                className="rounded"
-                                src={img.attributes.formats.medium.url}
-                                alt={product.attributes.productTitile}
-                                style={{
-                                  width: "100%",
-                                  height: "100%",
-                                  objectFit: "cover",
-                                }}
-                              />
+                              <div
+                                id={`image-${index}`}
+                                className="carousel slide carousel-fade"
+                              >
+                                <div className="carousel-inner">
+                                  {product.attributes.prductImage.data.map(
+                                    (img, index) => (
+                                      <div
+                                        className="carousel-item active"
+                                        key={index}
+                                      >
+                                        <img
+                                          className="rounded d-block w-100"
+                                          src={
+                                            img.attributes.formats.medium.url
+                                          }
+                                          alt={product.attributes.productTitile}
+                                          style={{
+                                            objectFit: "cover",
+                                          }}
+                                        />
+                                      </div>
+                                    )
+                                  )}
+                                </div>
+                                {
+                                  product.attributes.prductImage.data.length != 1 && (
+                                  <>
+                                    <button className="carousel-control-prev" type="button" data-bs-target={`#image-${index}`} data-bs-slide="prev">
+                                      <span className="carousel-control-prev-icon bg-dark p-3 rounded-circle" aria-hidden="true"></span>
+                                      <span className="visually-hidden">Previous</span>
+                                    </button>
+                                    <button className="carousel-control-next" type="button" data-bs-target={`#image-${index}`} data-bs-slide="next">
+                                      <span className="carousel-control-next-icon bg-dark p-3 rounded-circle" aria-hidden="true"></span>
+                                      <span className="visually-hidden">Next</span>
+                                    </button>
+                                  </>
+                                  )
+                                }
+                              </div>
                             </a>
                           </Box>
-                        ))}
-                        <Box className="product-info text-center mt-2">
-                          <Typography
-                            variant="h5"
-                            component="a"
-                            href={`${product.attributes.category.data.attributes.root}/${product.id}`}
-                            mb={1}
-                            className="product-title fw-bold text-dark my-2"
-                          >
-                            {product.attributes.productTitile}
-                          </Typography>
-                          <div className="row">
-                            <div className="col product-price d-flex me-3 fw-bold fs-4 align-items-center text-end">
-                              {product.attributes.productPrice} درهم
-                            </div>
-                            <div className="col d-flex justify-content-end add-to cart">
-                              <IconButton
-                                onClick={() =>
-                                  handleAddToCart(product.id, "success")
-                                }
-                                className="cart-btn"
-                              >
-                                <Tooltip
-                                  title="أضف هذا المنتوج إلى سلة منتجاتك"
-                                  arrow
+                          <Box className="product-info text-center mt-2">
+                            <Typography
+                              variant="h5"
+                              component="a"
+                              href={`${product.attributes.category.data.attributes.root}/${product.id}`}
+                              mb={1}
+                              className="product-title fw-bold text-dark my-2"
+                            >
+                              {product.attributes.productTitile}
+                            </Typography>
+                            <div className="row">
+                              <div className="col product-price d-flex fw-bold fs-4 align-items-center text-end">
+                                {product.attributes.productPrice} درهم
+                              </div>
+                              <div className="col d-flex justify-content-end cart-btn">
+                                <IconButton
+                                  className="cart-btn"
+                                  onClick={() =>
+                                    handleAddToCart(product.id, "success")
+                                  }
                                 >
-                                  <AddShoppingCartIcon className="fs-3" />
-                                </Tooltip>
-                              </IconButton>
+                                  <Tooltip
+                                    title="أضف هذا المنتوج إلى سلة منتجاتك"
+                                    arrow
+                                  >
+                                    <AddShoppingCartIcon className="fs-3" />
+                                  </Tooltip>
+                                </IconButton>
+                              </div>
                             </div>
-                          </div>
+                          </Box>
                         </Box>
-                      </Box>
-                    </motion.article>
-                  ))
-                }
+                      </motion.article>
+                    ))
+                )}
               </Box>
             </Box>
           </section>

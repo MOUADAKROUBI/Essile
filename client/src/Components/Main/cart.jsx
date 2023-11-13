@@ -3,6 +3,7 @@ import {
   Button,
   IconButton,
   InputLabel,
+  Link,
   MenuItem,
   Select,
   TextField,
@@ -278,25 +279,29 @@ const Cart = () => {
                         height: 150,
                       }}
                     >
-                      <Box
-                        component='img'
-                        src={
-                          product.attributes.prductImage.data[0].attributes
-                            .formats.small.url
-                        }
-                        alt={
-                          product.attributes.prductImage.data[0].attributes
-                            .formats.small.url
-                        }
-                        className="rounded"
-                        sx= {
-                          {
-                            width: {sm: "100%", xs: '75%'},
-                            height: {sm: "100%", xs: '75%'},
-                            objectFit: 'cover'
+                      <Link
+                        href={`${product.attributes.category.data.attributes.root}/${product.id}`}
+                      >
+                        <Box
+                          component='img'
+                          src={
+                            product.attributes.prductImage.data[0].attributes
+                              .formats.small.url
                           }
-                        }
-                      />
+                          alt={
+                            product.attributes.prductImage.data[0].attributes
+                              .formats.small.url
+                          }
+                          className="rounded"
+                          sx= {
+                            {
+                              width: {sm: "100%", xs: '75%'},
+                              height: {sm: "100%", xs: '75%'},
+                              objectFit: 'cover'
+                            }
+                          }
+                        />
+                      </Link>
                     </Box>
                     <div className="product-title-quantity text-center">
                       <Typography
