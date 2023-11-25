@@ -9,7 +9,9 @@ import Categories from "../src/Components/Main/categories";
 import SingleProduct from "../src/Components/Main/singleProduct";
 import { SnackbarProvider } from "notistack";
 import axios from "axios";
+import { ErrorBoundary } from "react-error-boundary";
 import './css/app.css';
+import HandleErrorPage from "./HandleErrorPage";
 
 const App = () => {
   const [categories, setCategories] = useState([]);
@@ -34,41 +36,43 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <>
-        <CssBaseline />
-        <Container>
-          <Header />
-          <SnackbarProvider maxSnack={3}>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              {
-                categories.map((category) => (
-                  <Route
-                    key={category}
-                    path={category.attributes.root}
-                    element={
-                      <Categories category={category.attributes.categoryTitle} />
-                    }
-                  />
-                ))
-              }
-              {
-                categories.map((category) => (
-                  <Route 
-                    key={category} 
-                    path={`${category.attributes.root}/:id`} 
-                    element={<SingleProduct category={category.attributes.categoryTitle}/>} 
-                  />
-                ))
-              }
-              <Route path="/cart" element={<Cart />} />
-            </Routes>
-          </SnackbarProvider>
-          <Footer />
-        </Container>
-      </>
-    </Router>
+    <ErrorBoundary fallback={<HandleErrorPage />}>
+      <Router>
+        <>
+          <CssBaseline />
+          <Container>
+            <Header />
+            <SnackbarProvider maxSnack={3}>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                {
+                  categories.map((category) => (
+                    <Route
+                      key={category}
+                      path={category.attributes.root}
+                      element={
+                        <Categories category={category.attributes.categoryTitle} />
+                      }
+                    />
+                  ))
+                }
+                {
+                  categories.map((category) => (
+                    <Route 
+                      key={category} 
+                      path={`${category.attributes.root}/:id`} 
+                      element={<SingleProduct category={category.attributes.categoryTitle}/>} 
+                    />
+                  ))
+                }
+                <Route path="/cart" element={<Cart />} />
+              </Routes>
+            </SnackbarProvider>
+            <Footer />
+          </Container>
+        </>
+      </Router>
+    </ErrorBoundary>
   );
 };
 

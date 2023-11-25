@@ -94,14 +94,8 @@ const SingleProduct = ({ category }) => {
         />
       </Helmet>
 
-      <div className={loading ? "d-flex justify-content-center" : ""}>
-        {loading ? (
-          <img
-            src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_products.gif?alt=media&token=a4f48c3f-47c3-4b2b-9af4-448985881b7d"
-            alt=""
-            className="mt-5"
-          />
-        ) : (
+      <div className={!loading && data && data.attributes ? "" : "d-flex justify-content-center"}>
+        {!loading && data && data.attributes ? (
           <section>
             <Box
               className="single-product my-5 p-2 rounded"
@@ -123,9 +117,14 @@ const SingleProduct = ({ category }) => {
                     id={`image-${id}`}
                     className="carousel slide carousel-fade"
                   >
+                    <div className="carousel-indicators">
+                      <button type="button" data-bs-target={`#image-${id}`} data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
+                      <button type="button" data-bs-target={`#image-${id}`} data-bs-slide-to="1" aria-label="Slide 2"></button>
+                      <button type="button" data-bs-target={`#image-${id}`} data-bs-slide-to="2" aria-label="Slide 3"></button>
+                    </div>
                     <div className="carousel-inner">
                       {data.attributes.prductImage.data.map((img, index) => (
-                        <div className="carousel-item active" key={index}>
+                        <div className="carousel-item active" data-bs-interval={`${index+1}0000`} key={index}>
                           <Box
                             component="img"
                             key={index}
@@ -147,7 +146,7 @@ const SingleProduct = ({ category }) => {
                       data-bs-slide="prev"
                     >
                       <span
-                        className="carousel-control-prev-icon"
+                        className="carousel-control-prev-icon bg-dark p-3 rounded-circle"
                         aria-hidden="true"
                       ></span>
                       <span className="visually-hidden">Previous</span>
@@ -159,7 +158,7 @@ const SingleProduct = ({ category }) => {
                       data-bs-slide="next"
                     >
                       <span
-                        className="carousel-control-next-icon"
+                        className="carousel-control-next-icon bg-dark p-3 rounded-circle"
                         aria-hidden="true"
                       ></span>
                       <span className="visually-hidden">Next</span>
@@ -352,20 +351,39 @@ const SingleProduct = ({ category }) => {
                                     )
                                   )}
                                 </div>
-                                {
-                                  product.attributes.prductImage.data.length != 1 && (
+                                {product.attributes.prductImage.data.length !=
+                                  1 && (
                                   <>
-                                    <button className="carousel-control-prev" type="button" data-bs-target={`#image-${index}`} data-bs-slide="prev">
-                                      <span className="carousel-control-prev-icon bg-dark p-3 rounded-circle" aria-hidden="true"></span>
-                                      <span className="visually-hidden">Previous</span>
+                                    <button
+                                      className="carousel-control-prev"
+                                      type="button"
+                                      data-bs-target={`#image-${index}`}
+                                      data-bs-slide="prev"
+                                    >
+                                      <span
+                                        className="carousel-control-prev-icon bg-dark p-3 rounded-circle"
+                                        aria-hidden="true"
+                                      ></span>
+                                      <span className="visually-hidden">
+                                        Previous
+                                      </span>
                                     </button>
-                                    <button className="carousel-control-next" type="button" data-bs-target={`#image-${index}`} data-bs-slide="next">
-                                      <span className="carousel-control-next-icon bg-dark p-3 rounded-circle" aria-hidden="true"></span>
-                                      <span className="visually-hidden">Next</span>
+                                    <button
+                                      className="carousel-control-next"
+                                      type="button"
+                                      data-bs-target={`#image-${index}`}
+                                      data-bs-slide="next"
+                                    >
+                                      <span
+                                        className="carousel-control-next-icon bg-dark p-3 rounded-circle"
+                                        aria-hidden="true"
+                                      ></span>
+                                      <span className="visually-hidden">
+                                        Next
+                                      </span>
                                     </button>
                                   </>
-                                  )
-                                }
+                                )}
                               </div>
                             </a>
                           </Box>
@@ -407,6 +425,12 @@ const SingleProduct = ({ category }) => {
               </Box>
             </Box>
           </section>
+        ) : (
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/essile-85c38.appspot.com/o/loading_products.gif?alt=media&token=a4f48c3f-47c3-4b2b-9af4-448985881b7d"
+            alt=""
+            className="mt-5"
+          />
         )}
       </div>
     </>
